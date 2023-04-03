@@ -15,9 +15,9 @@ Extends the JpaRepository interface from Spring Data JPA.
  */
 public interface CodeSnippetJpaRepository extends JpaRepository<CodeSnippet, Long> {
 
-    // Finds by owner
-    List<CodeSnippet> findByOwner(Person owner);
+    // Finds by person
+    List<CodeSnippet> findByPerson(Person person);
 
-    // Finds by owner and level
-    List<CodeSnippet> findByOwnerAndLevel(Person owner, Level level);
+    // Finds by person and level
+    List<CodeSnippet> findByPersonAndLevel(Person person, Level level);
 }

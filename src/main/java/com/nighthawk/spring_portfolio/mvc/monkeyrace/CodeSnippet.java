@@ -32,6 +32,9 @@ public class CodeSnippet {
     @ManyToOne
     private Stage stage;
 
+    @ManyToOne
+    private Level level;
+
     public static void main(String[] args) {
         CodeSnippet c = new CodeSnippet();
 
