@@ -16,4 +16,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/ubuntu/monkeybackendrepo/volumes
+      device: /home/ubuntu/tri3_monkey_8298/volumes
