@@ -1,12 +1,12 @@
 version: '3'
 services:
-  web_t8_tri2:
+  web_macromonkeys_tri3:
     env_file:
       - .env
-    image: java_springv1_t8_tri2
+    image: macromonkeys_tri3
     build: .
     ports:
-      - "8198:8085"
+      - "8298:8085"
     volumes:
       - persistent_volume:/app/volumes
     restart: unless-stopped
@@ -16,4 +16,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/pi/apps/quizme/volumes
+      device: /home/ubuntu/monkeybackendrepo/volumes
