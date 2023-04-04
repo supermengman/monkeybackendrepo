@@ -19,5 +19,5 @@ public interface CodeSnippetJpaRepository extends JpaRepository<CodeSnippet, Lon
     List<CodeSnippet> findByPerson(Person person);
 
     // Finds by person and level
-    List<CodeSnippet> findByPersonAndLevel(Person person, Level level);
+    Optional<CodeSnippet> findByPersonAndLevel(Person person, Level level);
 }
