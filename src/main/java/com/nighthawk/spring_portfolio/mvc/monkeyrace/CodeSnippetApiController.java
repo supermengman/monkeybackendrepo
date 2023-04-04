@@ -51,6 +51,10 @@ public class CodeSnippetApiController {
             CodeSnippet snippet = optional.get();
             snippet.setSnippet((String) map.get("code"));
             codeSnippetJpaRepository.save(snippet);
+
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", false);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
         }
 
         String code = (String) map.get("code");
