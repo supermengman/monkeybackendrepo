@@ -72,4 +72,28 @@ public class CodeSnippetApiController {
         resp.put("err", false);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
+    @PostMapping("/getSnippet")
+    public ResponseEntity<Object> getSnippet(@RequestBody final Map<String, Object> map, @CookieValue("jwt") String jwt) {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        Level level = levelJpaRepository.findById((long) map.get("level"));
+        Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
+        if (optional.isPresent()) {
+            CodeSnippet snippet = optional.get();
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", false);
+            resp.put("code", snippet.getSnippet());
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", "No Code Snippet Found");
+        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+    }
 }
