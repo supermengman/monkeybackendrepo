@@ -1,0 +1,37 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+import java.util.*;
+
+public class {{ classname }} {
+    public static void main(String[] args) {
+        int[] answers = {
+            {0,3,6,9},
+            {1,4,7,5},
+            {2,5,8,3}
+        };
+        int[][] arr2D = {
+            {0,1,2},
+            {3,4,5},
+            {6,7,8},
+            {9,5,3}
+        };
+
+        for (int i = 0; i<arr2D[0].length; i++) {
+            int[] secondArr = getColumn(arr2D, i);
+            if (secondArr.length != answers[i].length) {
+                System.exit(255);
+            }
+
+            for (int i = 0; i<secondArr.length; i++) {
+                if (answers[i] != secondArr[i]) {
+                    System.exit(255);
+                }
+            }
+        }
+    }
+
+    public static int[] getColumn (int[][] arr2D, int c) {
+        {{ answer }}
+    }
+}
