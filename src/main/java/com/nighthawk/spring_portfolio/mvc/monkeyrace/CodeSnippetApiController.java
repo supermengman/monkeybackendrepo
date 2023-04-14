@@ -98,4 +98,11 @@ public class CodeSnippetApiController {
         resp.put("err", "No Code Snippet Found");
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
+
+    // mainly for testing
+    @PostMapping("/frq_a_2018")
+    public ResponseEntity<String> frq_a_2018(@RequestBody final Map<String, Object> map) {
+        CodeSnippetRunner r = new CodeSnippetRunner(CodeSnippetRunner.Problem.FRQ_A_2018);
+        return new ResponseEntity<String>(r.isCorrect((String)map.get("code")) ? "TRUE" : "FALSE", HttpStatus.OK);
+    }
 }
