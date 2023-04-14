@@ -2,6 +2,7 @@ package com.nighthawk.spring_portfolio.mvc.monkeyrace;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +40,7 @@ public class CodeSnippetRunner {
         try {
             stream = new ClassPathResource("classpath:javatemplates/" + fileName).getInputStream();
         } catch (Exception e) {
+            System.out.println("Exception: " + e + ", " + e.getStackTrace());
             return null;
         }
         
@@ -59,5 +61,48 @@ public class CodeSnippetRunner {
         }
 
         return template.replace("{{ classname }}", className).replace("{{ answer }}", answer);
+    }
+
+    private String generateRandomClassName(int characters) {
+        String name = "";
+        for (int i = 0; i<characters; i++) {
+            char c = (char)((int)(Math.random() * 26) + 'A');
+            name += c;
+        }
+        return name;
+    }
+
+    public boolean isCorrect(String answer) {
+        String className = generateRandomClassName(40);
+        String code = getJavaCode(className, answer);
+
+        File outputFile = new File("volumes/javacode/" + className + ".java");
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            writer.write(code);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("FAILED to write code to file\nFile Name: " + outputFile.getAbsolutePath() + "\nCode:" + code);
+            System.out.println("Exception: " + e + ", " + e.getStackTrace());
+            return false;
+        }
+
+        String[] command = {"java", className + ".java"};
+        ProcessBuilder builder = new ProcessBuilder(command);
+        builder = builder.directory(new File("volumes/javacode"));
+        
+        try {
+            Process p = builder.start();
+            p.waitFor();
+            if (p.exitValue() == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Exception: " + e + ", " + e.getStackTrace());
+            return false;
+        }
     }
 }
