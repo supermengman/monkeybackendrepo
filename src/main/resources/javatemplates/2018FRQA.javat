@@ -24,7 +24,7 @@ public class {{ classname }} {
             }
 
             for (int j = 0; j<secondArr.length; j++) {
-                if (answers[j] != secondArr[j]) {
+                if (answers[i][j] != secondArr[j]) {
                     System.exit(255);
                 }
             }
