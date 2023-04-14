@@ -1,4 +1,4 @@
-package com.nighthawk.spring_portfolio.mvc.monkeyrace;
+package com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

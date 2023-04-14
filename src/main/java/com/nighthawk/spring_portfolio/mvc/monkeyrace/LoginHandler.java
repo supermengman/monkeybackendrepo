@@ -1,5 +1,7 @@
 package com.nighthawk.spring_portfolio.mvc.monkeyrace;
 
+import com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa.*;
+
 import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

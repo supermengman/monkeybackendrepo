@@ -1,4 +1,4 @@
-package com.nighthawk.spring_portfolio.mvc.monkeyrace;
+package com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa;
 
 import java.util.*;
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Person {
+public class CodeSnippet {
     // id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,21 +24,22 @@ public class Person {
 
     @NotEmpty
     @Size(min = 5)
-    @Column(unique = true)
-    @Email
-    String email;
+    String snippet;
 
-    String passwordHash;
-
+    @ManyToOne
+    private Person person;
 
     @ManyToOne
     private Stage stage;
 
-    public static void main(String[] args) {
-        Person p = new Person();
-        p.setEmail("yippee@y8ipee.com");
-        p.setPasswordHash("password");
+    @ManyToOne
+    private Level level;
 
-        System.out.println(p.toString());
+    public static void main(String[] args) {
+        CodeSnippet c = new CodeSnippet();
+
+        c.setSnippet("if (a > b) { return a; } else { return b; }");
+
+        System.out.println(c.toString());
     }
 }
