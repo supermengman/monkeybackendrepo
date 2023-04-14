@@ -46,4 +46,18 @@ public class CodeSnippetRunner {
 
         return r.lines().collect(Collectors.joining("\n"));
     }
+
+    private String getJavaCode(String className, String answer) {
+        String template = getTemplate();
+        if (template == null) {
+            System.out.println("Getting template has failed, user's code will FAIL. Problem File: " + getProblemFileName());
+            template = "public class {{ classname }} {public static void main(String[] args) {System.exit(1);}}";
+        }
+        if (answer.contains("System.exit")) {
+            System.out.println("Stop trying to cheat user");
+            template = "public class {{ classname }} {public static void main(String[] args) {System.exit(1);}}";
+        }
+
+        return template.replace("{{ classname }}", className).replace("{{ answer }}", answer);
+    }
 }
