@@ -5,7 +5,7 @@ import java.util.*;
 
 public class {{ classname }} {
     public static void main(String[] args) {
-        int[] answers = {
+        int[][] answers = {
             {0,3,6,9},
             {1,4,7,5},
             {2,5,8,3}
@@ -23,8 +23,8 @@ public class {{ classname }} {
                 System.exit(255);
             }
 
-            for (int i = 0; i<secondArr.length; i++) {
-                if (answers[i] != secondArr[i]) {
+            for (int j = 0; j<secondArr.length; j++) {
+                if (answers[j] != secondArr[j]) {
                     System.exit(255);
                 }
             }
