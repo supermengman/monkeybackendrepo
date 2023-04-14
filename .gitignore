@@ -34,6 +34,8 @@ build/
 
 ### Database ###
 volumes/sqlite.db
+!volumes/javacode/placeholder.txt
+volumes/javacode/
 
 ### Environment Variables ###
 .env
