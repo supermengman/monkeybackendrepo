@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -130,6 +131,27 @@ public class CodeSnippetApiController {
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", "No Code Snippet Found");
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/getData")
+    public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
+        String key = (String) map.get("key");
+        if (!key.equals(System.getenv("ADMIN_KEY"))) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "You are not authorized");
+            return new ResponseEntity<>(resp, HttpStatus.UNAUTHORIZED);
+        }
+
+        String csv = "Name,Level\n";
+        List<Person> persons = personJpaRepository.findAll();
+        for (Person p : persons) {
+            csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
+        }
+
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", false);
+        resp.put("csv", csv);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
     // mainly for testing
