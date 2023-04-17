@@ -120,6 +120,7 @@ public class CodeSnippetApiController {
             CodeSnippet snippet = optional.get();
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", false);
+            resp.put("status", snippet.getError());
             resp.put("code", snippet.getSnippet());
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
