@@ -133,13 +133,11 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/getData")
+    @PostMapping("/data.csv")
     public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
         String key = (String) map.get("key");
         if (!key.equals(System.getenv("ADMIN_KEY"))) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "You are not authorized");
-            return new ResponseEntity<>(resp, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
         }
 
         String csv = "Name,Level\n";
@@ -148,10 +146,7 @@ public class CodeSnippetApiController {
             csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
         }
 
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("err", false);
-        resp.put("csv", csv);
-        return new ResponseEntity<>(resp, HttpStatus.OK);
+        return new ResponseEntity<>(csv, HttpStatus.OK);
     }
 
     // mainly for testing
