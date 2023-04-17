@@ -70,8 +70,10 @@ public class CodeSnippetRunner {
         return name;
     }
 
-    /*
-     * @return error, if not present then test passed
+    /**
+     * 
+     * @param answer The code to be tested
+     * @return A string if there is an error (code failed), if passed Optional is empty
      */
     public Optional<String> isCorrect(String answer) {
         String className = generateRandomClassName(40);
