@@ -38,8 +38,8 @@ public class CodeSnippetApiController {
     @Autowired
     LevelJpaRepository levelJpaRepository;
     
-    @PostMapping("/createSnippet")
-    public ResponseEntity<Object> createSnippet(@RequestBody final Map<String, Object> map, @CookieValue("jwt") String jwt) {
+    @PostMapping("/attemptLevel")
+    public ResponseEntity<Object> attemptLevel(@RequestBody final Map<String, Object> map, @CookieValue("jwt") String jwt) {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -47,27 +47,48 @@ public class CodeSnippetApiController {
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
-        Level level = levelJpaRepository.findById((long) map.get("level"));
+        Level level = p.getLevel();
+
+        if (level.getNumber() == Level.LEVEL_MAX) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "You completed the game!");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST); 
+        }
+
+        // test the code
+        CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblemEnum());
+        Optional<String> result = runner.isCorrect((String) map.get("code"));
+
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
             snippet.setSnippet((String) map.get("code"));
+            snippet.setError(result.isPresent() ? result.get() : null);
             codeSnippetJpaRepository.save(snippet);
+
+            // succeeded
+            if (!result.isPresent()) {
+                p.setLevel(levelJpaRepository.findByNumber(level.getNumber() + 1));
+            }
 
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", false);
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
+        else {
+            String code = (String) map.get("code");
+            CodeSnippet snippet = new CodeSnippet();
+            snippet.setSnippet(code);
+            snippet.setPerson(p);
+            snippet.setLevel(level);
+            snippet.setError(result.isPresent() ? result.get() : null);
+            codeSnippetJpaRepository.save(snippet);
 
-        String code = (String) map.get("code");
-        CodeSnippet snippet = new CodeSnippet();
-        snippet.setSnippet(code);
-        snippet.setPerson(p);
-
-        
-        snippet.setLevel(level);
-
-        codeSnippetJpaRepository.save(snippet);
+            // succeeded
+            if (!result.isPresent()) {
+                p.setLevel(levelJpaRepository.findByNumber(level.getNumber() + 1));
+            }
+        }
 
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", false);
@@ -104,5 +125,13 @@ public class CodeSnippetApiController {
         CodeSnippetRunner r = new CodeSnippetRunner(Problem.FRQ_A_2018);
         Optional<String> result = r.isCorrect((String)map.get("code"));
         return new ResponseEntity<String>(result.isPresent() ? result.get() : "PASSED", HttpStatus.OK);
+    }
+
+    // handles exceptions
+    @ExceptionHandler({ ClassCastException.class, NullPointerException.class })
+    public ResponseEntity<Object> handleBadUserInput() {
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", "Bad User Input");
+        return new ResponseEntity<>(resp, HttpStatus.UNAUTHORIZED);
     }
 }
