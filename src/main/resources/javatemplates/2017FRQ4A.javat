@@ -1,0 +1,55 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+import java.util.*;
+
+public class {{ classname }} {
+    static class Position {
+        private int r;
+        private int c;
+        public Position(int r, int c) {
+            this.r = r;
+            this.c = c;
+        }
+    }
+
+    public static void main(String[] args) {
+        Position[] answers = {new Position(2, 1), null, new Position(1, 3), new Position(0, 2)};
+        int[][] twodArray = {
+            {15, 5, 9, 10},
+            {12, 16, 11, 6},
+            {14, 8, 13, 7}
+        };
+
+        if (findPosition(16, twodArray) == answers[0]) {
+            System.out.println("Test 1 passed");
+        } else {
+            System.out.println("Test 1 failed");
+            System.exit(255);
+        }
+        if (findPosition(20, twodArray) == answers[1]) {
+            System.out.println("Test 2 passed");
+        } else {
+            System.out.println("Test 2 failed");
+            System.exit(255);
+        }
+        if (findPosition(11, twodArray) == answers[2]) {
+            System.out.println("Test 3 passed");
+        } else {
+            System.out.println("Test 3 failed");
+            System.exit(255);
+        }
+        if (findPosition(9, twodArray) == answers[3]) {
+            System.out.println("Test 4 passed");
+        } else {
+            System.out.println("Test 4 failed");
+            System.exit(255);
+        }
+
+        System.exit({{ exitcode }});
+    }
+
+    public static Position findPosition (int num, int[][] intArr) {
+        {{ answer }}
+    }
+}

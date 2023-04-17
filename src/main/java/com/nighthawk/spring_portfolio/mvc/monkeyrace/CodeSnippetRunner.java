@@ -26,6 +26,10 @@ public class CodeSnippetRunner {
                 return "2018FRQA.javat";
             case FRQ_B_2018:
                 return "2018FRQB.javat";
+            case FRQ_4A_2017:
+                return "2017FRQ4A.javat";
+            case FRQ_4B_2017:
+                return "2017FRQ4B.javat";
         }
         return null;
     }

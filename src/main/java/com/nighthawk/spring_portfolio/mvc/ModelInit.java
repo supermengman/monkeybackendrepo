@@ -23,6 +23,8 @@ public class ModelInit {
             Level[] levels = {
                 new Level(null, "Level 0", 0, Problem.FRQ_A_2018.getName()),
                 new Level(null, "Level 1", 1, Problem.FRQ_B_2018.getName()),
+                new Level(null, "Level 2", 2, Problem.FRQ_4A_2017.getName()),
+                new Level(null, "Level 3", 3, Problem.FRQ_4B_2017.getName()),
                 new Level(null, "Completion", Level.DUMMY_LEVEL, null),
             };
 
