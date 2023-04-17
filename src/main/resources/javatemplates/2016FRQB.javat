@@ -37,6 +37,10 @@ public class {{ classname }} {
 
         {{ classname }} obj = new {{ classname }}();
 
+        if (obj == null || obj.puzzle == null || grid.length != obj.puzzle.length || grid[0].length != obj.puzzle[0].length) {
+            System.exit(255);
+        }
+
         for (int i = 0; i<grid.length; i++) {
             for (int j = 0; j<grid[i].length) {
                 if (obj.puzzle[i][j].isBlack != grid[i][j] || obj.puzzle[i][j].num != labels[i][j]) {
