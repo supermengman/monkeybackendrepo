@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
@@ -49,18 +50,14 @@ public class CodeSnippetRunner {
         return r.lines().collect(Collectors.joining("\n"));
     }
 
-    private String getJavaCode(String className, String answer) {
+    private String getJavaCode(String className, String answer, int exitCode) {
         String template = getTemplate();
         if (template == null) {
             System.out.println("Getting template has failed, user's code will FAIL. Problem File: " + getProblemFileName());
-            template = "public class {{ classname }} {public static void main(String[] args) {System.exit(1);}}";
-        }
-        if (answer.contains("System.exit")) {
-            System.out.println("Stop trying to cheat user");
-            template = "public class {{ classname }} {public static void main(String[] args) {System.exit(1);}}";
+            template = "public class {{ classname }} {public static void main(String[] args) {System.exit(255);}}";
         }
 
-        return template.replace("{{ classname }}", className).replace("{{ answer }}", answer);
+        return template.replace("{{ classname }}", className).replace("{{ exitcode }}", Integer.toString(exitCode)).replace("{{ answer }}", answer);
     }
 
     private String generateRandomClassName(int characters) {
@@ -74,7 +71,8 @@ public class CodeSnippetRunner {
 
     public boolean isCorrect(String answer) {
         String className = generateRandomClassName(40);
-        String code = getJavaCode(className, answer);
+        int exitCode = 2 + (int)(Math.random() * 253); // exit codes 2-254
+        String code = getJavaCode(className, answer, exitCode);
 
         File outputFile = new File("volumes/javacode/" + className + ".java");
 
@@ -95,7 +93,9 @@ public class CodeSnippetRunner {
         try {
             Process p = builder.start();
             p.waitFor();
-            if (p.exitValue() == 0) {
+            System.out.println(p.exitValue());
+            System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
+            if (p.exitValue() == exitCode) {
                 return true;
             } else {
                 return false;

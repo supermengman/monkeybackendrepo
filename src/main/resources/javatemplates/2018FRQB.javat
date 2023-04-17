@@ -15,6 +15,7 @@ public class {{ classname }} {
                 System.exit(255);
             }
         }
+        System.exit({{ exitcode }});
     }
 
     public static int[] getColumn (int[][] arr2D, int c) {
