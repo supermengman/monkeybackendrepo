@@ -14,10 +14,6 @@ import java.util.stream.Collectors;
 import org.springframework.core.io.ClassPathResource;
 
 public class CodeSnippetRunner {
-    public enum Problem {
-        FRQ_A_2018, FRQ_B_2018
-    }
-
     Problem problem;
 
     public CodeSnippetRunner(Problem p) {
