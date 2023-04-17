@@ -34,9 +34,9 @@ public class PersonApiController {
     @DeleteMapping("/deletePerson")
     public ResponseEntity<Object> deletePerson(@RequestBody final Map<String, Object> map)
             throws NoSuchAlgorithmException {
-        String email = (String) map.get("email");
+        String name = (String) map.get("name");
         String password = (String) map.get("password");
-        Optional<Person> optional = repository.findByEmail(email);
+        Optional<Person> optional = repository.findByName(name);
         if (optional.isPresent()) { // Good ID
             Person person = optional.get(); // value from findByID
 
@@ -70,7 +70,7 @@ public class PersonApiController {
     public ResponseEntity<Object> postPerson(@RequestBody final Map<String, Object> map)
             throws NoSuchAlgorithmException {
         // check for existing person
-        if (repository.findByEmail((String) map.get("email")).isPresent()) {
+        if (repository.findByName((String) map.get("name")).isPresent()) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", "Email already in use");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
@@ -87,7 +87,7 @@ public class PersonApiController {
         // A person object WITHOUT ID will create a new record with default roles as
         // student
         Person person = new Person();
-        person.setEmail((String) map.get("email"));
+        person.setName((String) map.get("name"));
 
         // password hash
         MessageDigest digest = MessageDigest.getInstance("SHA-256");

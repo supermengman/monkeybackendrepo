@@ -25,8 +25,7 @@ public class Person {
     @NotEmpty
     @Size(min = 5)
     @Column(unique = true)
-    @Email
-    String email;
+    String name;
 
     // to ensure protection other classes need to redact this
     public String passwordHash;
@@ -36,7 +35,7 @@ public class Person {
 
     public static void main(String[] args) {
         Person p = new Person();
-        p.setEmail("yippee@y8ipee.com");
+        p.setName("Yipee");
         p.setPasswordHash("password");
 
         System.out.println(p.toString());

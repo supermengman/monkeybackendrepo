@@ -33,7 +33,7 @@ public class LoginApiController {
 
   @PostMapping("/authenticate")
   public ResponseEntity<Object> authenticate(@RequestBody final Map<String, Object> map, HttpServletResponse response) throws NoSuchAlgorithmException {
-    var popt = personJpaRepository.findByEmail((String) map.get("email"));
+    var popt = personJpaRepository.findByName((String) map.get("name"));
     if (!popt.isPresent()) {
       // error handling
       Map<String, Object> resp = new HashMap<>();

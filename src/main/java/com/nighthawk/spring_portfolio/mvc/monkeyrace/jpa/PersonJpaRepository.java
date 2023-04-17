@@ -13,7 +13,7 @@ Extends the JpaRepository interface from Spring Data JPA.
 -- Via JPA the developer can retrieve database from relational databases to Java objects and vice versa.
  */
 public interface PersonJpaRepository extends JpaRepository<Person, Long> {
-    Optional<Person> findByEmail(String email);
+    Optional<Person> findByName(String name);
     
-    Person findByEmailAndPasswordHash(String email, String passwordHash);
+    Person findByNameAndPasswordHash(String name, String passwordHash);
 }
