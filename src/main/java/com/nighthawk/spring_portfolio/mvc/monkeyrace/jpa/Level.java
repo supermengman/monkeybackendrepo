@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Level {
-    // highest level (this will be a dummy level to show they completed game)
-    public static int LEVEL_MAX = 5;
+    // highest level
+    public static int DUMMY_LEVEL = 5;
 
     // id
     @Id

@@ -49,7 +49,7 @@ public class CodeSnippetApiController {
 
         Level level = p.getLevel();
 
-        if (level.getNumber() == Level.LEVEL_MAX) {
+        if (level.getNumber() == Level.DUMMY_LEVEL) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", "You completed the game!");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST); 
@@ -68,7 +68,9 @@ public class CodeSnippetApiController {
 
             // succeeded
             if (!result.isPresent()) {
-                p.setLevel(levelJpaRepository.findByNumber(level.getNumber() + 1));
+                Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
+                if (newLevel != null) p.setLevel(newLevel);
+                else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
             }
 
             Map<String, Object> resp = new HashMap<>();
@@ -86,7 +88,9 @@ public class CodeSnippetApiController {
 
             // succeeded
             if (!result.isPresent()) {
-                p.setLevel(levelJpaRepository.findByNumber(level.getNumber() + 1));
+                Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
+                if (newLevel != null) p.setLevel(newLevel);
+                else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
             }
         }
 
