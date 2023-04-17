@@ -72,10 +72,11 @@ public class CodeSnippetApiController {
                 if (newLevel != null) p.setLevel(newLevel);
                 else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
             }
-
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", false);
-            return new ResponseEntity<>(resp, HttpStatus.OK);
+            else {
+                Map<String, Object> resp = new HashMap<>();
+                resp.put("err", result.get());
+                return new ResponseEntity<>(resp, HttpStatus.PAYMENT_REQUIRED);
+            }
         }
         else {
             String code = (String) map.get("code");
@@ -91,6 +92,11 @@ public class CodeSnippetApiController {
                 Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
                 if (newLevel != null) p.setLevel(newLevel);
                 else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
+            }
+            else {
+                Map<String, Object> resp = new HashMap<>();
+                resp.put("err", result.get());
+                return new ResponseEntity<>(resp, HttpStatus.PAYMENT_REQUIRED);
             }
         }
 
