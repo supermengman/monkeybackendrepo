@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Level {
     // highest level
-    public static int DUMMY_LEVEL = 5;
+    public static int DUMMY_LEVEL = 100;
 
     // id
     @Id

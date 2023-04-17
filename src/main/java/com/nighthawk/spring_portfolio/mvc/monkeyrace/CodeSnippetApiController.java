@@ -71,6 +71,7 @@ public class CodeSnippetApiController {
                 Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
                 if (newLevel != null) p.setLevel(newLevel);
                 else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
+                personJpaRepository.save(p);
             }
             else {
                 Map<String, Object> resp = new HashMap<>();
@@ -92,6 +93,7 @@ public class CodeSnippetApiController {
                 Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
                 if (newLevel != null) p.setLevel(newLevel);
                 else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
+                personJpaRepository.save(p);
             }
             else {
                 Map<String, Object> resp = new HashMap<>();
