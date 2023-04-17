@@ -114,7 +114,7 @@ public class CodeSnippetApiController {
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
-        Level level = levelJpaRepository.findById((int) map.get("level"));
+        Level level = levelJpaRepository.findByNumber((int) map.get("level"));
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
