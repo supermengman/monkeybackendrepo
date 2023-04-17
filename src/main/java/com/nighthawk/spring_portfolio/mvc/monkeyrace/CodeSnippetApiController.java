@@ -103,6 +103,7 @@ public class CodeSnippetApiController {
     @PostMapping("/frq_a_2018")
     public ResponseEntity<String> frq_a_2018(@RequestBody final Map<String, Object> map) {
         CodeSnippetRunner r = new CodeSnippetRunner(CodeSnippetRunner.Problem.FRQ_A_2018);
-        return new ResponseEntity<String>(r.isCorrect((String)map.get("code")) ? "TRUE" : "FALSE", HttpStatus.OK);
+        Optional<String> result = r.isCorrect((String)map.get("code"));
+        return new ResponseEntity<String>(result.isPresent() ? result.get() : "PASSED", HttpStatus.OK);
     }
 }

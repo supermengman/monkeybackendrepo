@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
@@ -69,7 +70,10 @@ public class CodeSnippetRunner {
         return name;
     }
 
-    public boolean isCorrect(String answer) {
+    /*
+     * @return error, if not present then test passed
+     */
+    public Optional<String> isCorrect(String answer) {
         String className = generateRandomClassName(40);
         int exitCode = 2 + (int)(Math.random() * 253); // exit codes 2-254
         String code = getJavaCode(className, answer, exitCode);
@@ -83,7 +87,7 @@ public class CodeSnippetRunner {
         } catch (Exception e) {
             System.out.println("FAILED to write code to file\nFile Name: " + outputFile.getAbsolutePath() + "\nCode:" + code);
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
-            return false;
+            return Optional.of("Backend error");
         }
 
         String[] command = {"java", className + ".java"};
@@ -96,13 +100,15 @@ public class CodeSnippetRunner {
             System.out.println(p.exitValue());
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
             if (p.exitValue() == exitCode) {
-                return true;
+                return Optional.empty();
+            } else if (p.exitValue() == 1) {
+                return Optional.of("Compilation failed");
             } else {
-                return false;
+                return Optional.of("Code failed");
             }
         } catch (Exception e) {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
-            return false;
+            return Optional.of("Backend error");
         }
     }
 }
