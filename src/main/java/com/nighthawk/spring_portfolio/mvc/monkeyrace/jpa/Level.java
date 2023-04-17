@@ -2,6 +2,7 @@ package com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa;
 
 import java.util.stream.Stream;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Level {
+    // highest level
+    public static int DUMMY_LEVEL = 5;
+
     // id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
+
+    @Column(unique = true)
     private int number;
 
     private String problem;

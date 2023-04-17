@@ -25,6 +25,9 @@ public class PersonApiController {
     @Autowired
     private PersonJpaRepository repository;
 
+    @Autowired
+    private LevelJpaRepository levelRepository;
+
     /*
      * DELETE individual Person using ID
      */
@@ -92,6 +95,9 @@ public class PersonApiController {
                 password.getBytes(StandardCharsets.UTF_8));
         String computedPasswordHash = new String(encodedHash);
         person.setPasswordHash(computedPasswordHash);
+
+        // level
+        person.setLevel(levelRepository.findByNumber(0));
 
         repository.save(person);
         Map<String, Object> resp = new HashMap<>();
