@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LevelJpaRepository extends JpaRepository<Level, Long> {
-    List<Level> findByNumberAndStage(int number, Stage stage);
+    List<Level> findByNumber(int number);
     Level findById(long id);
-    List<Level> findByStage(Stage stage);
 }

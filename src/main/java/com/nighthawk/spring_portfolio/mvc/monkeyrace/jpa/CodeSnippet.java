@@ -30,9 +30,6 @@ public class CodeSnippet {
     private Person person;
 
     @ManyToOne
-    private Stage stage;
-
-    @ManyToOne
     private Level level;
 
     public static void main(String[] args) {

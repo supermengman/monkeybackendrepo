@@ -31,9 +31,8 @@ public class Person {
     // to ensure protection other classes need to redact this
     public String passwordHash;
 
-
     @ManyToOne
-    private Stage stage;
+    private Level level;
 
     public static void main(String[] args) {
         Person p = new Person();

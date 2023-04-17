@@ -66,7 +66,6 @@ public class CodeSnippetApiController {
 
         
         snippet.setLevel(level);
-        snippet.setStage(level.getStage());
 
         codeSnippetJpaRepository.save(snippet);
 
