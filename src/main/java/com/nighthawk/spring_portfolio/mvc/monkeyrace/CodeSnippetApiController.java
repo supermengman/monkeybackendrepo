@@ -39,7 +39,7 @@ public class CodeSnippetApiController {
     LevelJpaRepository levelJpaRepository;
     
     @PostMapping("/attemptLevel")
-    public ResponseEntity<Object> attemptLevel(@RequestBody final Map<String, Object> map, @CookieValue("jwt") String jwt) {
+    public ResponseEntity<Object> attemptLevel(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -100,7 +100,7 @@ public class CodeSnippetApiController {
     }
 
     @PostMapping("/getSnippet")
-    public ResponseEntity<Object> getSnippet(@RequestBody final Map<String, Object> map, @CookieValue("jwt") String jwt) {
+    public ResponseEntity<Object> getSnippet(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
