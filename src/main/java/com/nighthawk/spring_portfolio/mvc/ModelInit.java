@@ -27,7 +27,11 @@ public class ModelInit {
             };
 
             for (Level level : levels) {
-                if (repository.findByNumber(level.getNumber()) == null) {
+                Level oldLevel = repository.findByNumber(level.getNumber());
+                if (oldLevel == null) {
+                    repository.save(level);
+                } else {
+                    level.setId(oldLevel.getId());
                     repository.save(level);
                 }
             }
