@@ -23,7 +23,6 @@ public class CodeSnippet {
     // private Collection<PersonRole> roles = new ArrayList<>();
 
     @NotEmpty
-    @Size(min = 5)
     String snippet;
 
     @ManyToOne
@@ -31,6 +30,9 @@ public class CodeSnippet {
 
     @ManyToOne
     private Level level;
+
+    // IF "null" this code snippet passed
+    private String error;
 
     public static void main(String[] args) {
         CodeSnippet c = new CodeSnippet();
