@@ -1,0 +1,42 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+import java.util.*;
+
+public class {{ classname }} {
+    public static void main(String[] args) {
+        boolean[][] grid = new boolean[7][9]{
+            {true, false, false, true, true, true, false, false, false},
+            {false, false, false, false, true, false, false, false, false},
+            {false, false, false, false, false, false, true, true, true},
+            {false, false, true, false, false, false, true, false, false},
+            {true, true, true, false, false, false, false, false, false},
+            {false, false, false, false, true, false, false, false, false},
+            {false, false, false, true, true, true, false, false, true}
+        };
+
+        boolean[][] labeled = new boolean[7][9]{
+            {false, true, true, false, false, false, true, true, true},
+            {true, false, false, true, false, true, false, false, false},
+            {true, false, false, false, true, false, false, false, false},
+            {true, false, false, true, false, false, false, true, true},
+            {false, false, false, true, false, flase, true, false, false},
+            {true, true, true, false, false, true, false, false, false},
+            {true, false, false, false, false, false, true, false, false}
+        };
+
+        for (int i = 0; i<grid.length; i++) {
+            for (int j = 0; j<grid[i].length) {
+                if (toBeLabeled(i, j, grid) != labeled[i][j]) {
+                    System.exit(255);
+                }
+            }
+        }
+
+        System.exit({{ exitcode }});
+    }
+
+    public static boolean toBeLabeled(int r, int c, boolean[][] blackSquares) {
+        {{ answer }}
+    }
+}
