@@ -6,7 +6,7 @@ import java.util.*;
 public class {{ classname }} {
     static class Square {
         public boolean isBlack;
-        publit int num;
+        public int num;
 
         public Square(boolean a, int b) {
             isBlack = a;

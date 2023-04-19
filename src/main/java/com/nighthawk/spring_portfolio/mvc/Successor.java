@@ -8,7 +8,7 @@ import java.util.*;
 public class Successor {
     static class Square {
         public boolean isBlack;
-        publit int num;
+        public int num;
 
         public Square(boolean a, int b) {
             isBlack = a;
@@ -44,7 +44,7 @@ public class Successor {
         }
 
         for (int i = 0; i<grid.length; i++) {
-            for (int j = 0; j<grid[i].length) {
+            for (int j = 0; j<grid[i].length; j++) {
                 if (obj.puzzle[i][j].isBlack != grid[i][j] || obj.puzzle[i][j].num != labels[i][j]) {
                     System.exit(255);
                 }
@@ -60,7 +60,7 @@ public class Successor {
             {true, false, false, true, false, true, false, false, false},
             {true, false, false, false, true, false, false, false, false},
             {true, false, false, true, false, false, false, true, true},
-            {false, false, false, true, false, flase, true, false, false},
+            {false, false, false, true, false, false, true, false, false},
             {true, true, true, false, false, true, false, false, false},
             {true, false, false, false, false, false, true, false, false}
         };
@@ -70,7 +70,23 @@ public class Successor {
     public Square[][] puzzle;
 
     public Successor (boolean[][] blackSquares) {
-        {{ answer }}
+        puzzle = new Square[blackSquares.length][blackSquares[0].length];
+        int num = 1;
+
+        for (int i = 0; i<blackSquares.length; i++) {
+            for (int j = 0; j<blackSquares[i].length; j++) {
+                if (blackSquares[i][j]) {
+                    puzzle[i][j] = new Square(true, 0);
+                } else {
+                    if (toBeLabeled(i, j, blackSquares)) {
+                        puzzle[i][j] = new Square(false, num);
+                        num++;
+                    } else {
+                        puzzle[i][j] = new Square(false, 0);
+                    }
+                }
+            }
+        }
 
         
     }
