@@ -42,6 +42,10 @@ public class {{ classname }} {
 
         for (int row=0; row<answer.length; row++) {
             for (int col=0; col<answer[row].length; col++) {
+
+                if (answer[row][col] == null && studentAnswer[row][col] == null) {
+                    continue;
+                }
                 if (!answer[row][col].equals(studentAnswer[row][col])) {
                     System.out.println("Your answer is incorrect.");
                     System.exit(255);
@@ -49,7 +53,7 @@ public class {{ classname }} {
             }
         }
         
-        System.exit({{ exitcode }});
+        System.exit({{ exitcode}});
     }
 
     public static Position findPosition (int num, int[][] intArr) {
@@ -60,6 +64,7 @@ public class {{ classname }} {
                 }
             }
         }
+        return null;
     }
 
     public static Position[][] getSuccessorArray(int[][] intArr) {
