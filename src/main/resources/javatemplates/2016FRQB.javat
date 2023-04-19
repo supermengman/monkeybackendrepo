@@ -33,9 +33,9 @@ public class {{ classname }} {
             {0,0,0,15,0,0,16,0,0},
             {17,18,19,0,0,20,0,0,0},
             {21,0,0,0,0,0,22,0,0}
-        }
+        };
 
-        {{ classname }} obj = new {{ classname }}();
+        {{ classname }} obj = new {{ classname }}(grid);
 
         if (obj == null || obj.puzzle == null || grid.length != obj.puzzle.length || grid[0].length != obj.puzzle[0].length) {
             System.exit(255);
