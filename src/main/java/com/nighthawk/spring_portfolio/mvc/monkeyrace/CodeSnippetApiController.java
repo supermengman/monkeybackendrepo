@@ -108,6 +108,30 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @PostMapping("/setLevel")
+    public ResponseEntity<Object> setLevel(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        Level level = levelJpaRepository.findByNumber((int) map.get("level"));
+        if (level == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Level Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        p.setLevel(level);
+        personJpaRepository.save(p);
+
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", false);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
     @PostMapping("/getSnippet")
     public ResponseEntity<Object> getSnippet(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
         Person p = handler.decodeJwt(jwt);
