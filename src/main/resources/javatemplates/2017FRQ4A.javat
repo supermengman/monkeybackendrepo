@@ -11,42 +11,53 @@ public class {{ classname }} {
             this.r = r;
             this.c = c;
         }
+
+        public int getR() {
+            return r;
+        }
+
+        public int getC() {
+            return c;
+        }
     }
 
     public static void main(String[] args) {
-        Position[] answers = {new Position(2, 1), null, new Position(1, 3), new Position(0, 2)};
+        int[][] answers = { 
+            {1, 1},
+            {1, 2},
+            {0, 2}
+        };
         int[][] twodArray = {
             {15, 5, 9, 10},
             {12, 16, 11, 6},
             {14, 8, 13, 7}
         };
 
-        if (findPosition(16, twodArray) == answers[0]) {
+        if (findPosition(16, twodArray).getR() == answers[0][0] && findPosition(16, twodArray).getC() == answers[0][1]) {
             System.out.println("Test 1 passed");
         } else {
             System.out.println("Test 1 failed");
             System.exit(255);
         }
-        if (findPosition(20, twodArray) == answers[1]) {
+        if (findPosition(20, twodArray) ==  null) {
             System.out.println("Test 2 passed");
         } else {
             System.out.println("Test 2 failed");
             System.exit(255);
         }
-        if (findPosition(11, twodArray) == answers[2]) {
+        if (findPosition(11, twodArray).getR() == answers[1][0] && findPosition(11, twodArray).getC() == answers[1][1]) {
             System.out.println("Test 3 passed");
         } else {
             System.out.println("Test 3 failed");
             System.exit(255);
         }
-        if (findPosition(9, twodArray) == answers[3]) {
+        if (findPosition(9, twodArray).getR() == answers[2][0] && findPosition(9, twodArray).getC() == answers[2][1]) {
             System.out.println("Test 4 passed");
         } else {
             System.out.println("Test 4 failed");
             System.exit(255);
         }
-
-        System.exit({{ exitcode }});
+        System.exit({{ exitcode }}); // 0 for success, 255 for failure
     }
 
     public static Position findPosition (int num, int[][] intArr) {
