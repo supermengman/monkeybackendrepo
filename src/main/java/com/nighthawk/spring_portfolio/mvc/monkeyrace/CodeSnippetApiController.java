@@ -190,7 +190,7 @@ public class CodeSnippetApiController {
         }
 
         List<Person> persons = personJpaRepository.findAll();
-        List<Level> levels = levelJpaRepository.findAll();
+        List<Level> levels = levelJpaRepository.findAllOrderByNumber();
 
         String csv = "Name,";
         for (Level l : levels) {
