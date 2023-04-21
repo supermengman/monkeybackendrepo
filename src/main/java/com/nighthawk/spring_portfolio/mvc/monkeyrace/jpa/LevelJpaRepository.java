@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LevelJpaRepository extends JpaRepository<Level, Long> {
     Level findByNumber(int number);
     Level findById(long id);
+    List<Level> findAllOrderByNumber();
 }
