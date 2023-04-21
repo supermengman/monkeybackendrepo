@@ -194,22 +194,31 @@ public class CodeSnippetApiController {
 
         String csv = "Name,";
         for (Level l : levels) {
-            csv += l.getNumber() + ",";
+            csv += l.getName() + ",";
         }
+        csv += "total";
+
         csv += "\n";
 
         for (Person p : persons) {
+            int total = 0;
             csv += p.getName() + ",";
             for (Level l : levels) {
                 Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
                 if (optional.isPresent()) {
                     CodeSnippet snippet = optional.get();
-                    csv += snippet.getError() == null ? "1," : "0,";
+                    if (snippet.getError() == null) {
+                        csv += "1,";
+                        total++;
+                    }
+                    else csv += "0,";
                 }
                 else {
                     csv += "0,";
                 }
             }
+
+
             csv += "\n";
         }
 
