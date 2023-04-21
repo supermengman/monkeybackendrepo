@@ -48,8 +48,16 @@ public class CodeSnippetApiController {
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
-        Level level = p.getLevel();
+        int levelNumber = (int) map.get("levelNumber");
+        Level level = levelJpaRepository.findByNumber(levelNumber);
+        if (level == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Level Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+        // Level level = p.getLevel();
 
+        // TODO: don't need this cuz now level is set
         if (level.getNumber() == Level.DUMMY_LEVEL) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", "You completed the game!");
@@ -69,6 +77,7 @@ public class CodeSnippetApiController {
 
             // succeeded
             if (!result.isPresent()) {
+                // TODO: could delete?
                 Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
                 if (newLevel != null) p.setLevel(newLevel);
                 else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
@@ -157,6 +166,22 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
+    // @PostMapping("/data.csv")
+    // public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
+    //     String key = (String) map.get("key");
+    //     if (!key.equals(System.getenv("ADMIN_KEY"))) {
+    //         return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
+    //     }
+
+    //     String csv = "Name,Level\n";
+    //     List<Person> persons = personJpaRepository.findAll();
+    //     for (Person p : persons) {
+    //         csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
+    //     }
+
+    //     return new ResponseEntity<>(csv, HttpStatus.OK);
+    // }
+
     @PostMapping("/data.csv")
     public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
         String key = (String) map.get("key");
@@ -164,10 +189,28 @@ public class CodeSnippetApiController {
             return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
         }
 
-        String csv = "Name,Level\n";
         List<Person> persons = personJpaRepository.findAll();
+        List<Level> levels = levelJpaRepository.findAll();
+
+        String csv = "Name,";
+        for (Level l : levels) {
+            csv += l.getNumber() + ",";
+        }
+        csv += "\n";
+
         for (Person p : persons) {
-            csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
+            csv += p.getName() + ",";
+            for (Level l : levels) {
+                Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
+                if (optional.isPresent()) {
+                    CodeSnippet snippet = optional.get();
+                    csv += snippet.getError() == null ? "1," : "0,";
+                }
+                else {
+                    csv += "0,";
+                }
+            }
+            csv += "\n";
         }
 
         return new ResponseEntity<>(csv, HttpStatus.OK);
