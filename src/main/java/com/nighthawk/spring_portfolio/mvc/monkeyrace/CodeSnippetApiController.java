@@ -184,7 +184,7 @@ public class CodeSnippetApiController {
     // }
 
     @PostMapping("/getLevelList")
-    public ResponseEntity<Object> getLevelList(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
+    public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -196,6 +196,8 @@ public class CodeSnippetApiController {
         HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
 
         for (Level l : levels) {
+            if (l.getNumber() == Level.DUMMY_LEVEL) continue;
+
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
                 CodeSnippet snippet = optional.get();
