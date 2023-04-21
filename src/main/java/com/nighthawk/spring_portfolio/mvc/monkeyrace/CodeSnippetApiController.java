@@ -217,8 +217,7 @@ public class CodeSnippetApiController {
                     csv += "0,";
                 }
             }
-
-
+            csv += total;
             csv += "\n";
         }
 
