@@ -5,6 +5,7 @@ import com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,6 +182,35 @@ public class CodeSnippetApiController {
 
     //     return new ResponseEntity<>(csv, HttpStatus.OK);
     // }
+
+    @PostMapping("/getLevelList")
+    public ResponseEntity<Object> getLevelList(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
+        HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
+
+        for (Level l : levels) {
+            Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
+            if (optional.isPresent()) {
+                CodeSnippet snippet = optional.get();
+                if (snippet.getError() == null) {
+                    levelStatus.put(l.getNumber(), "Complete");
+                }
+                else levelStatus.put(l.getNumber(), "Attempted");
+            }
+            else {
+                levelStatus.put(l.getNumber(), "Not Attempted");;
+            }
+        }
+
+        return new ResponseEntity<Object>(levelStatus, HttpStatus.OK);
+    }
 
     @PostMapping("/data.csv")
     public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
