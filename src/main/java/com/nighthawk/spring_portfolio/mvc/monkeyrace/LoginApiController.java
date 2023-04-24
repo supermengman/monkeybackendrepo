@@ -62,6 +62,7 @@ public class LoginApiController {
     String jws = handler.createJwt(p);
     Cookie cookie = new Cookie("flashjwt", jws);
     cookie.setPath("/");
+    cookie.setMaxAge(1000 * 60 * 60);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 
@@ -72,7 +73,6 @@ public class LoginApiController {
   public ResponseEntity<Object> logout(@RequestBody final Map<String, Object> map, HttpServletResponse response) {
     Cookie cookie = new Cookie("flashjwt", "");
     cookie.setPath("/");
-    cookie.setMaxAge(1000 * 60 * 60);
     response.addCookie(cookie);
 
     Map<String, Object> resp = new HashMap<>();
