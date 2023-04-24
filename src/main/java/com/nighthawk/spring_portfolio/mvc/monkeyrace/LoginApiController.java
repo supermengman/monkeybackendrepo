@@ -70,7 +70,7 @@ public class LoginApiController {
   }
 
   @PostMapping("/logout")
-  public ResponseEntity<Object> logout(@RequestBody final Map<String, Object> map, HttpServletResponse response) {
+  public ResponseEntity<Object> logout(HttpServletResponse response) {
     Cookie cookie = new Cookie("flashjwt", "");
     cookie.setPath("/");
     response.addCookie(cookie);
