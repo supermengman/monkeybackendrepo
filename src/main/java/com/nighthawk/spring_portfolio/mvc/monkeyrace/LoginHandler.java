@@ -21,7 +21,7 @@ public class LoginHandler {
   // creates a person's account
   public String createJwt(Person user) {
     var time = (new Date()).getTime() + 1000 * 60 * 60 * 24;
-    return Jwts.builder().setSubject(user.getName()).setExpiration(new Date(time)).signWith(key).compact();
+    return Jwts.builder().setSubject(user.getName()).signWith(key).compact();
   }
   // try/catch set up for searching for an account based on a person's email
   public Person decodeJwt(String jws) {
