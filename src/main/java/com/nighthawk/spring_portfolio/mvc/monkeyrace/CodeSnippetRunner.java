@@ -34,6 +34,8 @@ public class CodeSnippetRunner {
                 return "2016FRQA.javat";
             case FRQ_B_2016:
                 return "2016FRQB.javat";
+            case Extra_Credit_Arrays:
+                return "ExtraCreditArrays.javat";
         }
         return null;
     }

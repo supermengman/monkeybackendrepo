@@ -1,0 +1,29 @@
+import java.util.*;
+public class {{ classname }} {
+    public static void main(String[] args) {
+        int[] answers = {24, 116};
+        int[][][] testcases = {
+            {{1, 4, 5}, {2, 1, 9}, {4, 3, 10}},
+            {{45, 3, 5}, {20, 10, 3}, {10, 98, 8}}
+        };
+
+        for (int i = 0; i < testcases.length; i++) {
+            int answer = highestSum(testcases[i]);
+            if (answer == answers[i]) {
+                System.out.println("Testcase " + i + " passed!");
+            } else {
+                System.out.println("Testcase " + i + " failed!");
+                System.out.println("Expected: " + answers[i]);
+                System.out.println("Got: " + answer);
+                System.exit(255);
+            }
+        }
+
+        System.exit({{ exitcode }});
+    }
+
+    
+    public static int highestSum(int[][] arr) {
+        {{ answer }}
+    }
+}

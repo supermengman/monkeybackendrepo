@@ -27,6 +27,7 @@ public class ModelInit {
                 new Level(null, "Level 3", 3, Problem.FRQ_4B_2017.getName()),
                 new Level(null, "Level 4", 4, Problem.FRQ_A_2016.getName()),
                 new Level(null, "Level 5", 5, Problem.FRQ_B_2016.getName()),
+                new Level(null, "Level 6", 6, Problem.Extra_Credit_Arrays.getName()),
                 new Level(null, "Completion", Level.DUMMY_LEVEL, null),
             };
 
