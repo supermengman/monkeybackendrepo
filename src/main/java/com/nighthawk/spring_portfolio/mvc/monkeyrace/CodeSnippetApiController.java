@@ -296,7 +296,9 @@ public class CodeSnippetApiController {
                     csv += "0,";
                 }
             }
-            csv += total * 2/6 + extraCredit * 0.3;
+            double a = 2;
+            double b = 6;
+            csv += (double) total * (a/b) + (double) extraCredit * 0.3;
             csv += "\n";
         }
 
