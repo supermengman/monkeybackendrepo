@@ -110,7 +110,7 @@ public class CodeSnippetRunner {
             if (p.exitValue() == exitCode) {
                 return Optional.empty();
             } else if (p.exitValue() == 1) {
-                return Optional.of("Compilation failed");
+                return Optional.of("Compilation failed or Runtime Error");
             } else {
                 return Optional.of("Code failed");
             }
