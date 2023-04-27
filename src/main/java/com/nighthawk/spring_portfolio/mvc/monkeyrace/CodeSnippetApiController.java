@@ -256,6 +256,53 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(csv, HttpStatus.OK);
     }
 
+    @PostMapping("/datascaled.csv")
+    public ResponseEntity<Object> getDataScaled(@RequestBody final Map<String, Object> map) {
+        String key = (String) map.get("key");
+        if (!key.equals(System.getenv("ADMIN_KEY"))) {
+            return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
+        }
+
+        List<Person> persons = personJpaRepository.findAll();
+        List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
+
+        String csv = "Name,";
+        for (Level l : levels) {
+            csv += l.getName() + ",";
+        }
+        csv += "scaled score";
+
+        csv += "\n";
+
+        for (Person p : persons) {
+            int total = 0;
+            int extraCredit = 0;
+            csv += p.getName() + ",";
+            for (Level l : levels) {
+                Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
+                if (optional.isPresent()) {
+                    CodeSnippet snippet = optional.get();
+                    if (snippet.getError() == null) {
+                        csv += "1,";
+                        if (l.getNumber() != 6) {
+                            total++;
+                        } else {
+                            extraCredit++;
+                        }
+                    }
+                    else csv += "0,";
+                }
+                else {
+                    csv += "0,";
+                }
+            }
+            csv += total * 2/6 + extraCredit * 0.3;
+            csv += "\n";
+        }
+
+        return new ResponseEntity<>(csv, HttpStatus.OK);
+    }
+
     // mainly for testing
     @PostMapping("/frq_a_2018")
     public ResponseEntity<String> frq_a_2018(@RequestBody final Map<String, Object> map) {
