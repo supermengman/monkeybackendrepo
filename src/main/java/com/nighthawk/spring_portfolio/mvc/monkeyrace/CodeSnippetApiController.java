@@ -318,4 +318,10 @@ public class CodeSnippetApiController {
         resp.put("err", "Bad User Input");
         return new ResponseEntity<>(resp, HttpStatus.UNAUTHORIZED);
     }
+    @ExceptionHandler({ MissingRequestCookieException.class })
+    public ResponseEntity<Object> handleNoCookie() {
+      Map<String, Object> resp = new HashMap<>();
+      resp.put("err", "Account doesn't exist");
+      return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+  }
 }
