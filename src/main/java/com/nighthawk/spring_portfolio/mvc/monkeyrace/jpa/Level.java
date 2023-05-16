@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 
-import com.nighthawk.spring_portfolio.mvc.monkeyrace.Problem;
-
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -42,13 +40,5 @@ public class Level {
         l.setName("What is sorting?");
         l.setNumber(1);
         System.out.println(l);
-    }
-
-    public void setProblemEnum(Problem p) {
-        this.problem = p.getName();
-    }
-
-    public Problem getProblemEnum() {
-        return Stream.of(Problem.values()).filter(c -> c.getName().equals(this.problem)).findFirst().orElse(null);
     }
 }
