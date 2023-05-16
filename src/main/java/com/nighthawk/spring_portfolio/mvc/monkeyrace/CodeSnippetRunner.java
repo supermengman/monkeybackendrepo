@@ -14,30 +14,14 @@ import java.util.stream.Collectors;
 import org.springframework.core.io.ClassPathResource;
 
 public class CodeSnippetRunner {
-    Problem problem;
+    String problem;
 
-    public CodeSnippetRunner(Problem p) {
+    public CodeSnippetRunner(String p) {
         this.problem = p;
     }
 
     private String getProblemFileName() {
-        switch (this.problem) {
-            case FRQ_A_2018:
-                return "2018FRQA.javat";
-            case FRQ_B_2018:
-                return "2018FRQB.javat";
-            case FRQ_4A_2017:
-                return "2017FRQ4A.javat";
-            case FRQ_4B_2017:
-                return "2017FRQ4B.javat";
-            case FRQ_A_2016:
-                return "2016FRQA.javat";
-            case FRQ_B_2016:
-                return "2016FRQB.javat";
-            case Extra_Credit_Arrays:
-                return "ExtraCreditArrays.javat";
-        }
-        return null;
+        return problem;
     }
 
     private String getTemplate() {

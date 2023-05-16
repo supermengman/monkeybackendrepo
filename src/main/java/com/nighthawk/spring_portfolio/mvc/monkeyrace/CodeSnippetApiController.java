@@ -66,7 +66,7 @@ public class CodeSnippetApiController {
         }
 
         // test the code
-        CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblemEnum());
+        CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblem());
         Optional<String> result = runner.isCorrect((String) map.get("code"));
 
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
@@ -308,7 +308,7 @@ public class CodeSnippetApiController {
     // mainly for testing
     @PostMapping("/frq_a_2018")
     public ResponseEntity<String> frq_a_2018(@RequestBody final Map<String, Object> map) {
-        CodeSnippetRunner r = new CodeSnippetRunner(Problem.FRQ_A_2018);
+        CodeSnippetRunner r = new CodeSnippetRunner("2018FRQA.javat");
         Optional<String> result = r.isCorrect((String)map.get("code"));
         return new ResponseEntity<String>(result.isPresent() ? result.get() : "PASSED", HttpStatus.OK);
     }
