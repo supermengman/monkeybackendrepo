@@ -13,4 +13,4 @@ The online race is time-based, which motivates students to learn and answer ques
 
 To get started, students can sign up for an account on the website and join a class or create their own class to compete with their classmates. Once the race starts, they will need to answer data structures questions as fast as they can to advance through the course.
 
-The Monkey Course Data Structures Challenge is perfect for students who are looking for a fun and engaging way to learn about data structures. Whether you are new to data structures or looking to improve your skills, our website will help you become a data structures expert while competing with your classmates.
+The Monkey Course Data Structures Challenge is perfect for students who are looking for a fun and engaging way to learn about data structures. Whether you are new to data structures or looking to improve your skills, our website will help you become a data structures expert while competing 
