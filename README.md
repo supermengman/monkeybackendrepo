@@ -37,3 +37,24 @@ The following technical components are necessary to implement the project effect
 3. **AP Score Prediction:** Users can track their progress and receive an estimated AP score based on their problem-solving ability. This feature aims to provide users with valuable insights into their preparedness for the AP exam.
 
 4. **Scoring and Feedback:** The scoring system will evaluate user-submitted code against a range of test cases, including complex inputs and edge cases. Users will receive detailed feedback highlighting areas for improvement and suggestions for optimizing their solutions.
+
+5. **Data Management:** The online database will store user code submissions and their associated scores. Users can access their historical data and track their progress over time. CRUD operations will be available for managing user data effectively.
+
+## Contributing
+We welcome contributions to this project. To contribute, follow these steps:
+
+Fork the repository
+
+Create a new branch for your feature or bug fix.
+
+Implement your changes and ensure that the codebase remains in good quality.
+
+Write appropriate tests to validate the functionality of your changes.
+
+Submit a pull request with a descriptive title and a summary of your changes.
+
+Participate in the code review process by addressing any feedback or suggestions.
+
+## License
+
+This project is licensed under the MIT LICENSE
