@@ -1,5 +1,7 @@
 package com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.persistence.Column;
@@ -7,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +33,9 @@ public class Level {
 
     @Column(unique = true)
     private int number;
+
+    @OneToMany
+    private List<Category> categories = new ArrayList<>();
 
     private String problem;
 
