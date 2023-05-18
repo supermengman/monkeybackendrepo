@@ -96,16 +96,11 @@ public class PersonApiController {
         String computedPasswordHash = new String(encodedHash);
         person.setPasswordHash(computedPasswordHash);
 
-        // level
-        person.setLevel(levelRepository.findByNumber(0));
-
         repository.save(person);
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", false);
         return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
-    
-    
 
     // handles exceptions
     @ExceptionHandler({ ClassCastException.class, NullPointerException.class })
