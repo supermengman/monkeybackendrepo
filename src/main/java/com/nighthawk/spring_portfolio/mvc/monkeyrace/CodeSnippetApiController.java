@@ -75,20 +75,6 @@ public class CodeSnippetApiController {
             snippet.setSnippet((String) map.get("code"));
             snippet.setError(result.isPresent() ? result.get() : null);
             codeSnippetJpaRepository.save(snippet);
-
-            // succeeded
-            if (!result.isPresent()) {
-                // TODO: could delete?
-                Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
-                if (newLevel != null) p.setLevel(newLevel);
-                else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
-                personJpaRepository.save(p);
-            }
-            else {
-                Map<String, Object> resp = new HashMap<>();
-                resp.put("err", result.get());
-                return new ResponseEntity<>(resp, HttpStatus.PAYMENT_REQUIRED);
-            }
         }
         else {
             String code = (String) map.get("code");
@@ -98,44 +84,7 @@ public class CodeSnippetApiController {
             snippet.setLevel(level);
             snippet.setError(result.isPresent() ? result.get() : null);
             codeSnippetJpaRepository.save(snippet);
-
-            // succeeded
-            if (!result.isPresent()) {
-                Level newLevel = levelJpaRepository.findByNumber(level.getNumber() + 1);
-                if (newLevel != null) p.setLevel(newLevel);
-                else p.setLevel(levelJpaRepository.findByNumber(Level.DUMMY_LEVEL));
-                personJpaRepository.save(p);
-            }
-            else {
-                Map<String, Object> resp = new HashMap<>();
-                resp.put("err", result.get());
-                return new ResponseEntity<>(resp, HttpStatus.PAYMENT_REQUIRED);
-            }
         }
-
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("err", false);
-        return new ResponseEntity<>(resp, HttpStatus.OK);
-    }
-
-    @PostMapping("/setLevel")
-    public ResponseEntity<Object> setLevel(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
-        Person p = handler.decodeJwt(jwt);
-        if (p == null) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
-            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
-        }
-
-        Level level = levelJpaRepository.findByNumber((int) map.get("level"));
-        if (level == null) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Level Does Not Exist");
-            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
-        }
-
-        p.setLevel(level);
-        personJpaRepository.save(p);
 
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", false);
