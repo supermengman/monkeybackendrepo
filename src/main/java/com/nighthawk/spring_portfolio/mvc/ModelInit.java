@@ -20,7 +20,6 @@ public class ModelInit {
     CommandLineRunner run() {  // The run() method will be executed after the application starts
         return args -> {
 
-            Level l = new Level()
             Level[] levels = {
                 new Level(null, "Level 0", 0, new ArrayList<>(), "This is the 2018 FRQ Part A", "2018FRQA.javat"),
                 new Level(null, "Level 1", 1, new ArrayList<>(), "This is the 2018 FRQ Part B", "2018FRQB.javat"),
