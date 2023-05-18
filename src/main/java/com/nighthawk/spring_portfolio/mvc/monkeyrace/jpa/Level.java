@@ -37,12 +37,15 @@ public class Level {
     @OneToMany
     private List<Category> categories = new ArrayList<>();
 
+    private String description;
+
     private String problem;
 
     public static void main(String[] args) {
         Level l = new Level();
         l.setId(10l);
         l.setName("What is sorting?");
+        l.setDescription("Make a sorting algorithm");
         l.setNumber(1);
         System.out.println(l);
     }
