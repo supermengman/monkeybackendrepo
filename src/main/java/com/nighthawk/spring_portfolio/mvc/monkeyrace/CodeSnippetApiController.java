@@ -70,10 +70,12 @@ public class CodeSnippetApiController {
         Optional<String> result = runner.isCorrect((String) map.get("code"));
 
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
+        String err = null;
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
             snippet.setSnippet((String) map.get("code"));
             snippet.setError(result.isPresent() ? result.get() : null);
+            err = result.isPresent() ? result.get() : null;
             codeSnippetJpaRepository.save(snippet);
         }
         else {
@@ -83,9 +85,17 @@ public class CodeSnippetApiController {
             snippet.setPerson(p);
             snippet.setLevel(level);
             snippet.setError(result.isPresent() ? result.get() : null);
+            err = result.isPresent() ? result.get() : null;
             codeSnippetJpaRepository.save(snippet);
         }
+        
+        if (err != null) {
+            Map<String, Object> resp = new HashMap<>();
 
+            resp.put("err", err);
+
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", false);
         return new ResponseEntity<>(resp, HttpStatus.OK);
