@@ -58,13 +58,6 @@ public class CodeSnippetApiController {
         }
         // Level level = p.getLevel();
 
-        // TODO: don't need this cuz now level is set
-        if (level.getNumber() == Level.DUMMY_LEVEL) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "You completed the game!");
-            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST); 
-        }
-
         // test the code
         CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblem());
         Optional<String> result = runner.isCorrect((String) map.get("code"));
