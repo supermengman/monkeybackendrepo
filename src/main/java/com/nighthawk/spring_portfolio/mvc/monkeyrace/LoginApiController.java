@@ -85,7 +85,7 @@ public class LoginApiController {
   public ResponseEntity<Object> getYourUser(@CookieValue("flashjwt") String jwt) {
     Person p = handler.decodeJwt(jwt);
     if (p == null) {
-      // return err ting
+      // return err thing
       Map<String, Object> resp = new HashMap<>();
       resp.put("err", "Account doesn't exist");
       return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);

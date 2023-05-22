@@ -28,6 +28,8 @@ public class PersonApiController {
     @Autowired
     private LevelJpaRepository levelRepository;
 
+    @Autowired
+    LoginHandler handler;
     /*
      * DELETE individual Person using ID
      */
@@ -100,6 +102,53 @@ public class PersonApiController {
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", false);
         return new ResponseEntity<>(resp, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/updateUser")
+    public ResponseEntity<Object> updatePerson(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) throws NoSuchAlgorithmException {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        String name = (String) map.get("name");
+        String password = (String) map.get("password");
+
+        if (name != null && password != null) {
+            if (repository.findByName(name).isPresent()) {
+                Map<String, Object> resp = new HashMap<>();
+                resp.put("err", "Name already in use");
+                return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+            }
+
+            p.setName(name);
+
+            // check for password complexity requirements
+            if (password.length() < 8 || !password.matches(".*[0-9]+.*") || !password.matches(".*[^A-Za-z0-9\\s].*")) {
+                Map<String, Object> resp = new HashMap<>();
+                resp.put("err", "Password does not meet complexity requirements (length >= 8, contains number, contains special character)");
+                return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+            }
+
+            // password hash
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = digest.digest(
+                    password.getBytes(StandardCharsets.UTF_8));
+            String computedPasswordHash = new String(encodedHash);
+            p.setPasswordHash(computedPasswordHash);
+
+            repository.save(p);
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", false);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", "Bad User Input");
+        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+
     }
 
     // handles exceptions

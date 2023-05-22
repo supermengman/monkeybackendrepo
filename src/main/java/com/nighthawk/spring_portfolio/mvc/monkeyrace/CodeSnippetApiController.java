@@ -58,13 +58,6 @@ public class CodeSnippetApiController {
         }
         // Level level = p.getLevel();
 
-        // TODO: don't need this cuz now level is set
-        if (level.getNumber() == Level.DUMMY_LEVEL) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "You completed the game!");
-            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST); 
-        }
-
         // test the code
         CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblem());
         Optional<String> result = runner.isCorrect((String) map.get("code"));
@@ -126,21 +119,7 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
-    // @PostMapping("/data.csv")
-    // public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
-    //     String key = (String) map.get("key");
-    //     if (!key.equals(System.getenv("ADMIN_KEY"))) {
-    //         return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
-    //     }
 
-    //     String csv = "Name,Level\n";
-    //     List<Person> persons = personJpaRepository.findAll();
-    //     for (Person p : persons) {
-    //         csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
-    //     }
-
-    //     return new ResponseEntity<>(csv, HttpStatus.OK);
-    // }
 
     @PostMapping("/getLevelList")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
@@ -155,7 +134,6 @@ public class CodeSnippetApiController {
         HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
 
         for (Level l : levels) {
-            if (l.getNumber() == Level.DUMMY_LEVEL) continue;
 
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
@@ -166,7 +144,7 @@ public class CodeSnippetApiController {
                 else levelStatus.put(l.getNumber(), "Attempted");
             }
             else {
-                levelStatus.put(l.getNumber(), "Not Attempted");;
+                levelStatus.put(l.getNumber(), "Not Attempted");
             }
         }
 
