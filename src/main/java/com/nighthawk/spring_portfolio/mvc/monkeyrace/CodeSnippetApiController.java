@@ -119,21 +119,7 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
-    // @PostMapping("/data.csv")
-    // public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
-    //     String key = (String) map.get("key");
-    //     if (!key.equals(System.getenv("ADMIN_KEY"))) {
-    //         return new ResponseEntity<>("You are not authorized", HttpStatus.UNAUTHORIZED);
-    //     }
-
-    //     String csv = "Name,Level\n";
-    //     List<Person> persons = personJpaRepository.findAll();
-    //     for (Person p : persons) {
-    //         csv += p.getName() + "," + p.getLevel().getNumber() + "\n";
-    //     }
-
-    //     return new ResponseEntity<>(csv, HttpStatus.OK);
-    // }
+    
 
     @PostMapping("/getLevelList")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
