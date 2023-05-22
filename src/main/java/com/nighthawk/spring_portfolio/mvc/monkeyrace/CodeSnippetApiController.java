@@ -170,7 +170,11 @@ public class CodeSnippetApiController {
             }
         }
 
-        return new ResponseEntity<Object>(levelStatus, HttpStatus.OK);
+        Map<String, Object> result = new HashMap<>();
+        result.put("levels", levels);
+        result.put("status", levelStatus);
+
+        return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
     @PostMapping("/data.csv")
