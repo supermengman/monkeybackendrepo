@@ -119,7 +119,7 @@ public class CodeSnippetApiController {
         return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
-    
+
 
     @PostMapping("/getLevelList")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
@@ -134,7 +134,6 @@ public class CodeSnippetApiController {
         HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
 
         for (Level l : levels) {
-            if (l.getNumber() == Level.DUMMY_LEVEL) continue;
 
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
@@ -145,7 +144,7 @@ public class CodeSnippetApiController {
                 else levelStatus.put(l.getNumber(), "Attempted");
             }
             else {
-                levelStatus.put(l.getNumber(), "Not Attempted");;
+                levelStatus.put(l.getNumber(), "Not Attempted");
             }
         }
 
