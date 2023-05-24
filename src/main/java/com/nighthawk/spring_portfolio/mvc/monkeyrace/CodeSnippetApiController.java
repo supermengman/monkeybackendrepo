@@ -152,6 +152,8 @@ public class CodeSnippetApiController {
         result.put("levels", levels);
         result.put("status", levelStatus);
 
+        result.forEach((key, value) -> System.out.println(key + ":" + value));
+
         return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 

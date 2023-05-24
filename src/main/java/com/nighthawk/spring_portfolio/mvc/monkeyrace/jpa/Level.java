@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
@@ -34,7 +35,7 @@ public class Level {
     @Column(unique = true)
     private int number;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>();
 
     private String description;
