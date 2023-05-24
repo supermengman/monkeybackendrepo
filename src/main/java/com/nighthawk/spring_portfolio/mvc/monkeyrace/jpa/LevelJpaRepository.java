@@ -8,4 +8,5 @@ public interface LevelJpaRepository extends JpaRepository<Level, Long> {
     Level findByNumber(int number);
     Level findById(long id);
     List<Level> findAllByOrderByNumberAsc();
+    List<Level> findAllByCategoriesName(String name);
 }

@@ -157,6 +157,43 @@ public class CodeSnippetApiController {
         return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
+    @PostMapping("/getLevelsByCategory")
+    public ResponseEntity<Object> getLevelsByCategory(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account Does Not Exist");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        String category = (String) map.get("category");
+        List<Level> levels = levelJpaRepository.findAllByCategoriesName(category);
+        HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
+
+        for (Level l : levels) {
+
+            Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
+            if (optional.isPresent()) {
+                CodeSnippet snippet = optional.get();
+                if (snippet.getError() == null) {
+                    levelStatus.put(l.getNumber(), "Complete");
+                }
+                else levelStatus.put(l.getNumber(), "Attempted");
+            }
+            else {
+                levelStatus.put(l.getNumber(), "Not Attempted");
+            }
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("levels", levels);
+        result.put("status", levelStatus);
+
+        result.forEach((key, value) -> System.out.println(key + ":" + value));
+
+        return new ResponseEntity<Object>(result, HttpStatus.OK);
+    }
+
     @PostMapping("/data.csv")
     public ResponseEntity<Object> getData(@RequestBody final Map<String, Object> map) {
         String key = (String) map.get("key");
