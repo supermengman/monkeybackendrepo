@@ -42,14 +42,14 @@ public class CodeSnippetRunner {
         return r.lines().collect(Collectors.joining("\n"));
     }
 
-    private String getJavaCode(String className, String answer, int exitCode) {
+    private String getJavaCode(String className, String answer, int specialCode) {
         String template = getTemplate();
         if (template == null) {
             System.out.println("Getting template has failed, user's code will FAIL. Problem File: " + getProblemFileName());
             template = "public class {{ classname }} {public static void main(String[] args) {System.exit(255);}}";
         }
 
-        return template.replace("{{ classname }}", className).replace("{{ exitcode }}", Integer.toString(exitCode)).replace("{{ answer }}", answer);
+        return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ answer }}", answer);
     }
 
     private String generateRandomClassName(int characters) {
@@ -68,8 +68,8 @@ public class CodeSnippetRunner {
      */
     public Pair<Optional<String>, Integer> testCode(String answer) {
         String className = generateRandomClassName(40);
-        int exitCode = 2 + (int)(Math.random() * 253); // exit codes 2-254
-        String code = getJavaCode(className, answer, exitCode);
+        int specialCode = (int)(100000*Math.random());
+        String code = getJavaCode(className, answer, specialCode);
 
         File outputFile = new File("volumes/javacode/" + className + ".java");
 
@@ -92,16 +92,24 @@ public class CodeSnippetRunner {
             p.waitFor();
             System.out.println(p.exitValue());
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
-            if (p.exitValue() == exitCode) {
-                return Pair.of(Optional.empty(), 1);
-            } else if (p.exitValue() == 1) {
+
+            if (p.exitValue() == 1) {
                 return Pair.of(Optional.of("Compilation failed or Runtime Error"), 1);
-            } else {
-                return Pair.of(Optional.of("Code failed"), 1);
+            }
+
+            String output = new String(p.getInputStream().readAllBytes());
+            
+            try {
+                int outputtedSpecialCode = Integer.parseInt(output.split("-")[0]);
+                if (outputtedSpecialCode != specialCode) throw new Exception();
+                int testcases = Integer.parseInt(output.split("-")[1].replace("\n", "").replace("\r", "").replace(" ", ""));
+                return Pair.of(Optional.empty(), testcases);
+            } catch (Exception e) {
+                return Pair.of(Optional.of("Error processing solution. Ensure you DO NOT have any prints in your code"), 0);
             }
         } catch (Exception e) {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
-            return Pair.of(Optional.of("Backend error"), 1);
+            return Pair.of(Optional.of("Backend error"), 0);
         }
     }
 }
