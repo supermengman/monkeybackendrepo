@@ -107,11 +107,11 @@ public class CodeSnippetApiController {
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", false);
-            resp.put("status", snippet.getError());
-            resp.put("code", snippet.getSnippet());
-            return new ResponseEntity<>(resp, HttpStatus.OK);
+            // Map<String, Object> resp = new HashMap<>();
+            // resp.put("err", false);
+            // resp.put("status", snippet.getError());
+            // resp.put("code", snippet.getSnippet());
+            return new ResponseEntity<>(snippet, HttpStatus.OK);
         }
 
         Map<String, Object> resp = new HashMap<>();
