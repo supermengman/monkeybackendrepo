@@ -109,7 +109,7 @@ public class PersonApiController {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
+            resp.put("err", "Account does not exist. Make sure you are logged in");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
