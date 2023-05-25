@@ -39,7 +39,7 @@ public class {{ classname }} {
                 points++;
             }
         }
-        System.exit("{{ specialcode }}-" + points);
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     public static int[] getColumn (int[][] arr2D, int c) {
