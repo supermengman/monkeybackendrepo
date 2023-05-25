@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.util.Pair;
 
 public class CodeSnippetRunner {
     String problem;
@@ -65,7 +66,7 @@ public class CodeSnippetRunner {
      * @param answer The code to be tested
      * @return A string if there is an error (code failed), if passed Optional is empty
      */
-    public Optional<String> isCorrect(String answer) {
+    public Pair<Optional<String>, Integer> testCode(String answer) {
         String className = generateRandomClassName(40);
         int exitCode = 2 + (int)(Math.random() * 253); // exit codes 2-254
         String code = getJavaCode(className, answer, exitCode);
@@ -79,7 +80,7 @@ public class CodeSnippetRunner {
         } catch (Exception e) {
             System.out.println("FAILED to write code to file\nFile Name: " + outputFile.getAbsolutePath() + "\nCode:" + code);
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
-            return Optional.of("Backend error");
+            return Pair.of(Optional.of("Backend error"), 0);
         }
 
         String[] command = {"java", className + ".java"};
@@ -92,15 +93,15 @@ public class CodeSnippetRunner {
             System.out.println(p.exitValue());
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
             if (p.exitValue() == exitCode) {
-                return Optional.empty();
+                return Pair.of(Optional.empty(), 1);
             } else if (p.exitValue() == 1) {
-                return Optional.of("Compilation failed or Runtime Error");
+                return Pair.of(Optional.of("Compilation failed or Runtime Error"), 1);
             } else {
-                return Optional.of("Code failed");
+                return Pair.of(Optional.of("Code failed"), 1);
             }
         } catch (Exception e) {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
-            return Optional.of("Backend error");
+            return Pair.of(Optional.of("Backend error"), 1);
         }
     }
 }
