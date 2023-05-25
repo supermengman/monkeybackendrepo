@@ -130,20 +130,17 @@ public class CodeSnippetApiController {
         }
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
-        HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
+        HashMap<Integer, Integer> levelStatus = new HashMap<Integer, Integer>();
 
         for (Level l : levels) {
 
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
                 CodeSnippet snippet = optional.get();
-                if (snippet.getError() == null) {
-                    levelStatus.put(l.getNumber(), "Complete");
-                }
-                else levelStatus.put(l.getNumber(), "Attempted");
+                levelStatus.put(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
             }
             else {
-                levelStatus.put(l.getNumber(), "Not Attempted");
+                levelStatus.put(l.getNumber(), -1);
             }
         }
 
