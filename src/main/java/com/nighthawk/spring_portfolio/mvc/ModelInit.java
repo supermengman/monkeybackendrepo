@@ -45,9 +45,18 @@ public class ModelInit {
             }
 
             Yaml yaml = new Yaml();
+            
+            // InputStream stream;
+            // try {
+            //     stream = new ClassPathResource("classpath:Problems.yaml").getInputStream();
+            // } catch (Exception e) {
+            //     System.out.println("Exception: " + e + ", " + e.getStackTrace());
+            //     return null;
+            // }
+
             InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("../resources/Problems.yaml");
+                .getResourceAsStream("Problems.yaml");
             
             
             List<Level> levels = new ArrayList<>();
