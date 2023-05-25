@@ -94,7 +94,7 @@ public class CodeSnippetRunner {
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
 
             if (p.exitValue() == 1) {
-                return Pair.of(Optional.of("Compilation failed or Runtime Error"), 1);
+                return Pair.of(Optional.of("Compilation failed or Runtime Error"), 0);
             }
 
             String output = new String(p.getInputStream().readAllBytes());
