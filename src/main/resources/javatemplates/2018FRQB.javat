@@ -10,12 +10,15 @@ public class {{ classname }} {
             {{1,2},{1,2}}
         };
 
+        int points = 0;
+
         for (int i = 0; i<twodArrays.length; i++) {
-            if (isLatin(twodArrays[i]) != answers[i]) {
-                System.exit(255);
+            if (isLatin(twodArrays[i]) == answers[i]) {
+                points++;
             }
         }
-        System.exit({{ exitcode }});
+
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     public static int[] getColumn (int[][] arr2D, int c) {

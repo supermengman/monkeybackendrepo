@@ -62,7 +62,8 @@ public class ModelInit {
                 for (String c : categoriesList) {
                     categoryList.add(categoryMap.get(c));
                 }
-                Level l = new Level(null, name, number, categoryList, description, problem);
+                int testcases = (int) map.get("testcases");
+                Level l = new Level(null, name, number, categoryList, description, problem, testcases);
                 levels.add(l);
             }
             

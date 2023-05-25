@@ -17,19 +17,29 @@ public class {{ classname }} {
             {9,5,3}
         };
 
+        int points = 0;
+
         for (int i = 0; i<arr2D[0].length; i++) {
             int[] secondArr = getColumn(arr2D, i);
-            if (secondArr.length != answers[i].length) {
-                System.exit(255);
+            if (secondArr.length == answers[i].length) {
+                points++;
+            }
+            else {
+                continue;
             }
 
+            boolean flag = true;
             for (int j = 0; j<secondArr.length; j++) {
                 if (answers[i][j] != secondArr[j]) {
-                    System.exit(255);
+                    flag = false;
                 }
             }
+
+            if (flag) {
+                points++;
+            }
         }
-        System.exit({{ exitcode }});
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     public static int[] getColumn (int[][] arr2D, int c) {

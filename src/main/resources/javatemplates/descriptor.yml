@@ -1,0 +1,55 @@
+categories:
+  - 2D Arrays
+  - Arrays
+levels:
+  - name: 2018 FRQ 4 Part A
+    number: 0
+    testcases: 6
+    description: 2018FRQA.md
+    java_template: 2018FRQA.javat
+    categories: 
+      - 2D Arrays
+  - name: 2018 FRQ 4 Part B
+    number: 1
+    testcases: 1
+    description: 2018FRQB.md
+    java_template: 2018FRQB.javat
+    categories: 
+      - 2D Arrays
+  - name: 2017 FRQ 3 Part A
+    number: 2
+    testcases: 1
+    description: 2017FRQ4A.md
+    java_template: 2017FRQ4A.javat
+    categories:
+      - 2D Arrays
+      - Arrays
+  - name: 2017 FRQ 3 Part B
+    number: 3
+    testcases: 1
+    description: 2017FRQ4B.md
+    java_template: 2017FRQ4B.javat
+    categories:
+      - 2D Arrays
+      - Arrays
+  - name: 2016 FRQ 3 Part A
+    number: 4
+    testcases: 1
+    description: 2016FRQA.md
+    java_template: 2016FRQA.javat
+    categories:
+      - 2D Arrays
+  - name: 2016 FRQ 3 Part A
+    number: 5
+    testcases: 1
+    description: 2016FRQA.md
+    java_template: 2016FRQA.javat
+    categories:
+      - 2D Arrays
+  - name: Highest Diagonal Sum
+    number: 6
+    testcases: 1
+    description: ExtraCreditArrays.md
+    java_template: ExtraCreditArrays.javat
+    categories:
+      - 2D Arrays

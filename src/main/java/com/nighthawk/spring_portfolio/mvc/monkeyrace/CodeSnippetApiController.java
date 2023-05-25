@@ -45,7 +45,7 @@ public class CodeSnippetApiController {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
+            resp.put("err", "Account does not exist. Make sure you are logged in");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
@@ -60,15 +60,14 @@ public class CodeSnippetApiController {
 
         // test the code
         CodeSnippetRunner runner = new CodeSnippetRunner(level.getProblem());
-        Optional<String> result = runner.isCorrect((String) map.get("code"));
+        var result = runner.testCode((String) map.get("code"));
 
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
-        String err = null;
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
             snippet.setSnippet((String) map.get("code"));
-            snippet.setError(result.isPresent() ? result.get() : null);
-            err = result.isPresent() ? result.get() : null;
+            snippet.setError(result.getFirst().isPresent() ? result.getFirst().get() : null);
+            snippet.setTestcasesPassed(result.getSecond());
             codeSnippetJpaRepository.save(snippet);
         }
         else {
@@ -77,20 +76,20 @@ public class CodeSnippetApiController {
             snippet.setSnippet(code);
             snippet.setPerson(p);
             snippet.setLevel(level);
-            snippet.setError(result.isPresent() ? result.get() : null);
-            err = result.isPresent() ? result.get() : null;
+            snippet.setError(result.getFirst().isPresent() ? result.getFirst().get() : null);
+            snippet.setTestcasesPassed(result.getSecond());
             codeSnippetJpaRepository.save(snippet);
         }
         
-        if (err != null) {
+        if (result.getFirst().isPresent()) {
             Map<String, Object> resp = new HashMap<>();
 
-            resp.put("err", err);
+            resp.put("err", result.getFirst());
 
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
         Map<String, Object> resp = new HashMap<>();
-        resp.put("err", false);
+        resp.put("msg", result.getSecond() + "/" + level.getTestcases() + " Testcases were passed.");
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
@@ -99,7 +98,7 @@ public class CodeSnippetApiController {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
+            resp.put("err", "Account does not exist. Make sure you are logged in");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
@@ -107,11 +106,11 @@ public class CodeSnippetApiController {
         Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, level);
         if (optional.isPresent()) {
             CodeSnippet snippet = optional.get();
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", false);
-            resp.put("status", snippet.getError());
-            resp.put("code", snippet.getSnippet());
-            return new ResponseEntity<>(resp, HttpStatus.OK);
+            // Map<String, Object> resp = new HashMap<>();
+            // resp.put("err", false);
+            // resp.put("status", snippet.getError());
+            // resp.put("code", snippet.getSnippet());
+            return new ResponseEntity<>(snippet, HttpStatus.OK);
         }
 
         Map<String, Object> resp = new HashMap<>();
@@ -126,25 +125,22 @@ public class CodeSnippetApiController {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
+            resp.put("err", "Account does not exist. Make sure you are logged in");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
-        HashMap<Integer, String> levelStatus = new HashMap<Integer, String>();
+        HashMap<Integer, Integer> levelStatus = new HashMap<Integer, Integer>();
 
         for (Level l : levels) {
 
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
                 CodeSnippet snippet = optional.get();
-                if (snippet.getError() == null) {
-                    levelStatus.put(l.getNumber(), "Complete");
-                }
-                else levelStatus.put(l.getNumber(), "Attempted");
+                levelStatus.put(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
             }
             else {
-                levelStatus.put(l.getNumber(), "Not Attempted");
+                levelStatus.put(l.getNumber(), -1);
             }
         }
 
@@ -162,7 +158,7 @@ public class CodeSnippetApiController {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account Does Not Exist");
+            resp.put("err", "Account does not exist. Make sure you are logged in");
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
@@ -283,14 +279,6 @@ public class CodeSnippetApiController {
         }
 
         return new ResponseEntity<>(csv, HttpStatus.OK);
-    }
-
-    // mainly for testing
-    @PostMapping("/frq_a_2018")
-    public ResponseEntity<String> frq_a_2018(@RequestBody final Map<String, Object> map) {
-        CodeSnippetRunner r = new CodeSnippetRunner("2018FRQA.javat");
-        Optional<String> result = r.isCorrect((String)map.get("code"));
-        return new ResponseEntity<String>(result.isPresent() ? result.get() : "PASSED", HttpStatus.OK);
     }
 
     // handles exceptions
