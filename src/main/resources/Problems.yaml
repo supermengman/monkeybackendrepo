@@ -1,0 +1,60 @@
+---
+number: 0
+id: null
+name: "Level 0"
+problem: "2016FRQA.javat"
+categories: 
+  - "2D Arrays"
+  - "Arrays"
+description: "test 0";
+---
+
+number: 1
+id: null
+name: "Level 1"
+problem: "2016FRQB.javat"
+categories: 
+  - "2D Arrays"
+description: "test 1";
+---
+
+number: 2
+name: "Level 2"
+problem: "2017FRQ4A.javat"
+categories: 
+  - "2D Arrays"
+  - "Arrays"
+description: "test 2";
+---
+
+number: 3
+name: "Level 3"
+problem: "2017FRQ4B.javat"
+categories: "
+  - "2D Arrays"
+  - "Arrays"
+description: "test 3";  
+---
+
+number: 4
+name: "Level 4"
+problem: "2018FRQA.javat"
+categories:
+  - "2D Arrays"
+description: "test 4";
+---
+
+number: 5
+name: "Level 5"
+problem: "2018FRQB.javat"
+categories:
+  - "2D Arrays"
+description: "test 5";
+---
+
+number: 6
+name: "Level 6"
+problem: "ExtraCreditArrays.javat"
+categories:
+  - "Arrays"
+description: "test 6";
