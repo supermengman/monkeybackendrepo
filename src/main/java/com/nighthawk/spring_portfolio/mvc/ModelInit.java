@@ -42,7 +42,7 @@ public class ModelInit {
             }
 
             Level[] levels = {
-                new Level(null, "Level 0", 0, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part A", "2018FRQA.javat", 1),
+                new Level(null, "Level 0", 0, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part A", "2018FRQA.javat", 8),
                 new Level(null, "Level 1", 1, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part B", "2018FRQB.javat", 1),
                 new Level(null, "Level 2", 2, List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part A", "2017FRQ4A.javat", 1),
                 new Level(null, "Level 3", 3 ,List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part B", "2017FRQ4B.javat", 1),
