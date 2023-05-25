@@ -34,7 +34,7 @@ public class CodeSnippet {
     // IF "null" this code snippet at least reached testcases
     private String error;
 
-    private int testcasesPassed;
+    private Integer testcasesPassed;
 
     public static void main(String[] args) {
         CodeSnippet c = new CodeSnippet();

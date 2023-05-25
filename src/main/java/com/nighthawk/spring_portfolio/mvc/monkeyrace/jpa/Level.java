@@ -42,7 +42,7 @@ public class Level {
 
     private String problem;
 
-    private int testcases;
+    private Integer testcases;
 
     public static void main(String[] args) {
         Level l = new Level();
