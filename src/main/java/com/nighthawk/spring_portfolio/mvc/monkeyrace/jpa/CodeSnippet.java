@@ -28,7 +28,7 @@ public class CodeSnippet {
     @ManyToOne
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Level level;
 
     // IF "null" this code snippet passed
