@@ -42,14 +42,13 @@ public class ModelInit {
             }
 
             Level[] levels = {
-                new Level(null, "Level 0", 0, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part A", "2018FRQA.javat"),
-                new Level(null, "Level 1", 1, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part B", "2018FRQB.javat"),
-                new Level(null, "Level 2", 2, List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part A", "2017FRQ4A.javat"),
-                new Level(null, "Level 3", 3 ,List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part B", "2017FRQ4B.javat"),
-                new Level(null, "Level 4", 4, List.of(categoryMap.get("2D Arrays")), "This is the 2016 FRQ Part A", "2016FRQA.javat"),
-                new Level(null, "Level 5", 5, List.of(categoryMap.get("2D Arrays")), "This is the 2016 FRQ Part B", "2016FRQB.javat"),
-                new Level(null, "Level 6", 6, List.of(categoryMap.get("2D Arrays")), "This is the extra credit challenge", "ExtraCreditArrays.javat"),
-                new Level(null, "Completion", Level.DUMMY_LEVEL, new ArrayList<>(), "This is a dummy level", null),
+                new Level(null, "Level 0", 0, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part A", "2018FRQA.javat", 1),
+                new Level(null, "Level 1", 1, List.of(categoryMap.get("2D Arrays")), "This is the 2018 FRQ Part B", "2018FRQB.javat", 1),
+                new Level(null, "Level 2", 2, List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part A", "2017FRQ4A.javat", 1),
+                new Level(null, "Level 3", 3 ,List.of(categoryMap.get("2D Arrays"), categoryMap.get("Arrays")), "This is the 2017 FRQ #4 Part B", "2017FRQ4B.javat", 1),
+                new Level(null, "Level 4", 4, List.of(categoryMap.get("2D Arrays")), "This is the 2016 FRQ Part A", "2016FRQA.javat", 1),
+                new Level(null, "Level 5", 5, List.of(categoryMap.get("2D Arrays")), "This is the 2016 FRQ Part B", "2016FRQB.javat", 1),
+                new Level(null, "Level 6", 6, List.of(categoryMap.get("2D Arrays")), "This is the extra credit challenge", "ExtraCreditArrays.javat", 1)
             };
 
             for (Level level : levels) {

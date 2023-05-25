@@ -42,6 +42,8 @@ public class Level {
 
     private String problem;
 
+    private int testcases;
+
     public static void main(String[] args) {
         Level l = new Level();
         l.setId(10l);
