@@ -9,6 +9,9 @@ import org.springframework.web.bind.MissingRequestCookieException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+
+import javax.validation.constraints.Null;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -104,7 +107,7 @@ public class PersonApiController {
         return new ResponseEntity<>(resp, HttpStatus.CREATED);
     }
 
-    @PostMapping("/updateUser")
+    @PostMapping("/updateUsername")
     public ResponseEntity<Object> updatePerson(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) throws NoSuchAlgorithmException {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
@@ -114,9 +117,8 @@ public class PersonApiController {
         }
 
         String name = (String) map.get("name");
-        String password = (String) map.get("password");
 
-        if (name != null && password != null) {
+        if (name != null) {
             if (repository.findByName(name).isPresent()) {
                 Map<String, Object> resp = new HashMap<>();
                 resp.put("err", "Name already in use");
@@ -125,14 +127,49 @@ public class PersonApiController {
 
             p.setName(name);
 
-            // check for password complexity requirements
+            
+
+            repository.save(p);
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", false);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("err", "Bad User Input");
+        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @PostMapping("/updatePassword")
+    public ResponseEntity<Object> updatePassword(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) throws NoSuchAlgorithmException {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("err", "Account does not exist. Make sure you are logged in");
+            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+        }
+
+        String currentPassword = (String) map.get("currentPassword");
+        String password = (String) map.get("password");
+
+        if (password != null && currentPassword != null) {
+            MessageDigest digestCurrent = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHashCurrent = digestCurrent.digest(
+                    currentPassword.getBytes(StandardCharsets.UTF_8));
+            String computedCurrentPasswordHash = new String(encodedHashCurrent);
+            if (!computedCurrentPasswordHash.equals(p.passwordHash)) {
+                Map<String, Object> resp = new HashMap<>();
+                resp.put("err", "Incorrect Password");
+                return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+            }
+
             if (password.length() < 8 || !password.matches(".*[0-9]+.*") || !password.matches(".*[^A-Za-z0-9\\s].*")) {
                 Map<String, Object> resp = new HashMap<>();
                 resp.put("err", "Password does not meet complexity requirements (length >= 8, contains number, contains special character)");
                 return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
             }
 
-            // password hash
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = digest.digest(
                     password.getBytes(StandardCharsets.UTF_8));
