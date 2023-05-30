@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.constraints.Null;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +61,7 @@ public class ScorePredictorApiController extends PredictionRunner {
         int attribute3 = levelStatus.get(3);      
         
         if (levelStatus.get(1) == null || levelStatus.get(2) == null || levelStatus.get(3) == null) {
-            return new ResponseEntity<Object>("You haven't submitted all 3 FRQs.", HttpStatus.OK);
+            return new ResponseEntity<Object>("You haven't submitted all the FRQs.", HttpStatus.OK);
         }
 
         else {
