@@ -46,6 +46,6 @@ public class PredictionRunner {
     public static void main(String[] args) {
         PredictionRunner scriptRunner = new PredictionRunner();
         int predictedScore = scriptRunner.runPythonScript(3, 4, 5);
-        System.out.println("Predicted Score: " + predictedScore);
+        System.out.println("Predcted Score: " + predictedScore);
     }
 }
