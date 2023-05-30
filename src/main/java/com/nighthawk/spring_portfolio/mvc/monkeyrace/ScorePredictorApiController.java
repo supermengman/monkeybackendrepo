@@ -2,9 +2,6 @@ package com.nighthawk.spring_portfolio.mvc.monkeyrace;
 
 import com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa.*;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
