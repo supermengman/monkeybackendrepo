@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PredictionRunner {
-    public int runPythonScript() {
+    public int runPythonScript(int attribute1, int attribute2, int attribute3) {
         try {
             String pythonScript = "import pandas as pd\n" +
                     "from sklearn.tree import DecisionTreeClassifier\n" +
@@ -23,7 +23,7 @@ public class PredictionRunner {
                     "    input_data = pd.DataFrame([[attribute1, attribute2, attribute3]])\n" +
                     "    prediction = clf.predict(input_data)\n" +
                     "    return prediction[0]\n" +
-                    "predicted_score = predict_score(attribute1, attribute2, attribute3)\n" +
+                    "predicted_score = predict_score(" + attribute1 + ", " + attribute2 + ", " + attribute3 + ")\n" +
                     "print(predicted_score)";
 
             ProcessBuilder processBuilder = new ProcessBuilder("python", "-c", pythonScript);
@@ -45,7 +45,7 @@ public class PredictionRunner {
 
     public static void main(String[] args) {
         PredictionRunner scriptRunner = new PredictionRunner();
-        int predictedScore = scriptRunner.runPythonScript();
+        int predictedScore = scriptRunner.runPythonScript(3, 4, 5);
         System.out.println("Predicted Score: " + predictedScore);
     }
 }
