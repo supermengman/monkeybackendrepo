@@ -4,6 +4,7 @@ import com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa.*;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -51,9 +52,11 @@ public class LevelApiController {
 
         // return description from file
         String descriptionFile = level.getDescription();
+        Path filePath = Path.of("descriptions/" + descriptionFile);
+        
         String description = "";
         try {
-            description = Files.readString(Paths.get("descriptions/" + descriptionFile), StandardCharsets.US_ASCII);
+            description = Files.readString(filePath);
         } catch (Exception e) {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
         }
