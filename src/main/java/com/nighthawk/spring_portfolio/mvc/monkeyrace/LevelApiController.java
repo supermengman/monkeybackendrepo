@@ -52,9 +52,8 @@ public class LevelApiController {
         // return description from file
         String descriptionFile = level.getDescription();
         String description = "";
-        description += descriptionFile;
         try {
-            description = Files.readString(Paths.get("./descriptions/" + descriptionFile), StandardCharsets.US_ASCII);
+            description = Files.readString(Paths.get("descriptions/" + descriptionFile), StandardCharsets.US_ASCII);
         } catch (Exception e) {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
         }
