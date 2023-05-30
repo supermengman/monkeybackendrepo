@@ -122,25 +122,25 @@ public class CodeSnippetApiController {
 
     @PostMapping("/getLevelList")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
-        Person p = handler.decodeJwt(jwt);
-        if (p == null) {
-            Map<String, Object> resp = new HashMap<>();
-            resp.put("err", "Account does not exist. Make sure you are logged in");
-            return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
-        }
+        
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
         HashMap<Integer, Integer> levelStatus = new HashMap<Integer, Integer>();
 
-        for (Level l : levels) {
+        Person p = handler.decodeJwt(jwt);
+        if (p == null) {
+            levelStatus = null;
+        } else {
+            for (Level l : levels) {
 
-            Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
-            if (optional.isPresent()) {
-                CodeSnippet snippet = optional.get();
-                levelStatus.put(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
-            }
-            else {
-                levelStatus.put(l.getNumber(), -1);
+                Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
+                if (optional.isPresent()) {
+                    CodeSnippet snippet = optional.get();
+                    levelStatus.put(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
+                }
+                else {
+                    levelStatus.put(l.getNumber(), -1);
+                }
             }
         }
 
