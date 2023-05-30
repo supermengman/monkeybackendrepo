@@ -2,7 +2,6 @@ package com.nighthawk.spring_portfolio.mvc.monkeyrace.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
