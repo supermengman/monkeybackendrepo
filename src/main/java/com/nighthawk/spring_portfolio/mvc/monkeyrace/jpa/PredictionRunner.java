@@ -37,9 +37,8 @@ public class PredictionRunner {
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            return -5;
         }
-
-        return -5;
     }
 
     public static void main(String[] args) {
