@@ -59,3 +59,41 @@ Participate in the code review process by addressing any feedback or suggestions
 ## License
 
 This project is licensed under the MIT LICENSE
+
+## Build Instructions
+
+## Build Instructions
+
+To build and run the project locally, follow these steps:
+
+1. Clone the repository to your local machine using the following command:
+git clone https://github.com/supermengman/macro-monkeys.git
+
+2. Navigate to the project directory:
+cd macro-monkeys
+
+3. Install the required dependencies using npm or yarn. Assuming you have npm installed, run the following command:
+npm install
+
+This will download all the necessary dependencies defined in the project's package.json file.
+
+4. Configure the backend environment variables:
+- Create a .env file in the project root directory.
+- Provide the required environment variables in the .env file, such as database connection details, API keys, etc. Refer to the project documentation or sample .env.example file for the required variables and their format.
+
+5. Build the project:
+npm run build
+
+This command will compile the frontend code and generate optimized static files in the build directory.
+
+6. Build a local frotend server:
+npm install -g serve
+serve -s build
+
+7. Access the application:
+- Open a web browser.
+- Enter the URL http://localhost:5000 or the appropriate port number if you have configured a different port.
+- The frontend application should be accessible, and you can begin using its features as described in the "Usage" section of the README.
+
+That's it! You have successfully built and set up the frontend of the project locally. You can now explore and interact with the application on your machine. If you encounter any issues during the build process, make sure you have followed all the steps correctly and that your system meets the necessary requirements specified in the README.
+
