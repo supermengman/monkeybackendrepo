@@ -6,8 +6,8 @@ RUN apt update && \
 COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true
-RUN pip install pandas
-RUN pip install sklearn
+RUN python3 -m pip install pandas
+RUN python3 -m pip install sklearn
 COPY . .
 RUN ./mvnw package
 CMD ["java", "-jar", "target/spring-0.0.1-SNAPSHOT.jar"]
