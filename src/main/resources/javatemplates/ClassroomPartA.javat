@@ -1,0 +1,41 @@
+public class {{ classname }} {
+   public static class Student {
+       private String name;
+       private int grade; // 0 - 100
+
+       public int getGrade() { return this.grade; }
+       public void setGrade(int grade) { this.grade = grade; }
+
+      public String getName() { return this.name; }
+      public void setName(String name) { this.name = name; }
+
+   }
+
+
+   // no duplicate names in this list
+   private ArrayList<Student> students;
+
+   public {{ classname }}() {
+      students = new ArrayList<Student>();
+   }
+
+   public void addStudent (Student student) {
+         {{ answer }}
+   } 
+   
+   public static void main (String[] args) {
+    int points = 0;
+    {{ classname }} class = new {{ classname }}();
+
+    class.addStudent(new Student(“Rohan”, 95));
+    if (class.students.get(0).getName().equals(“Rohan”)) points++;
+    class.addStudent(new Student(“Andrew”, 90));
+    if (class.students.get(1).getName().equals(“Andrew”)) points++;
+    class.addStudent(new Student(“Rohan”, 100));
+    if (class.students.size() == 2) points++;
+    if (class.students.get(0).getGrade() == 100) points++;
+    
+    System.out.println("{{ specialcode }}-" + points);
+
+   }
+}
