@@ -34,16 +34,16 @@ public class {{ classname }} {
         };
 
         int points = 0;
-        if (findPosition(16, twodArray).getR() == answers[0][0] && findPosition(16, twodArray).getC() == answers[0][1]) {
+        if (findPosition(16, twodArray) != null && findPosition(16, twodArray).getR() == answers[0][0] && findPosition(16, twodArray).getC() == answers[0][1]) {
             points++;
         }
         if (findPosition(20, twodArray) ==  null) {
             points++;
         }
-        if (findPosition(11, twodArray).getR() == answers[1][0] && findPosition(11, twodArray).getC() == answers[1][1]) {
+        if (findPosition(11, twodArray) != null && findPosition(11, twodArray).getR() == answers[1][0] && findPosition(11, twodArray).getC() == answers[1][1]) {
             points++;
         }
-        if (findPosition(9, twodArray).getR() == answers[2][0] && findPosition(9, twodArray).getC() == answers[2][1]) {
+        if (findPosition(9, twodArray) != null && findPosition(9, twodArray).getR() == answers[2][0] && findPosition(9, twodArray).getC() == answers[2][1]) {
             points++;
         }
         System.out.println("{{ specialcode }}-" + points);
