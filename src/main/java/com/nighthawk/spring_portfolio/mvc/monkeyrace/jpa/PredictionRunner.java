@@ -25,7 +25,7 @@ public class PredictionRunner {
                     "predicted_score = predict_score(" + attribute1 + ", " + attribute2 + ", " + attribute3 + ")\n" +
                     "print(predicted_score)";
 
-            ProcessBuilder processBuilder = new ProcessBuilder("python", "-c", pythonScript);
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", "-c", pythonScript);
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
