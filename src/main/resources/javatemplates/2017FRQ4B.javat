@@ -35,25 +35,27 @@ public class {{ classname }} {
         Position[][] answer = getSuccessorArrayAnswer(twodArray);
         Position[][] studentAnswer = getSuccessorArray(twodArray);
 
+        int points = 0;
+
         if (answer.length != studentAnswer.length) {
-            System.out.println("Your answer is incorrect.");
-            System.exit(255);
+            System.out.println("{{ specialcode }}-" + points);
+            System.exit(0);
         }
 
         for (int row=0; row<answer.length; row++) {
             for (int col=0; col<answer[row].length; col++) {
 
                 if (answer[row][col] == null && studentAnswer[row][col] == null) {
+                    points++;
                     continue;
                 }
-                if (!answer[row][col].equals(studentAnswer[row][col])) {
-                    System.out.println("Your answer is incorrect.");
-                    System.exit(255);
+                if (answer[row][col].equals(studentAnswer[row][col])) {
+                    points++;
                 }
             }
         }
         
-        System.exit({{ exitcode }});
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     public static Position findPosition (int num, int[][] intArr) {

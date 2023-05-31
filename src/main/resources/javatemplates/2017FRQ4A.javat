@@ -33,31 +33,22 @@ public class {{ classname }} {
             {14, 8, 13, 7}
         };
 
+        int points = 0;
+
         if (findPosition(16, twodArray).getR() == answers[0][0] && findPosition(16, twodArray).getC() == answers[0][1]) {
-            System.out.println("Test 1 passed");
-        } else {
-            System.out.println("Test 1 failed");
-            System.exit(255);
-        }
+            points++;
+        } 
         if (findPosition(20, twodArray) ==  null) {
-            System.out.println("Test 2 passed");
-        } else {
-            System.out.println("Test 2 failed");
-            System.exit(255);
-        }
+            points++;
+        } 
         if (findPosition(11, twodArray).getR() == answers[1][0] && findPosition(11, twodArray).getC() == answers[1][1]) {
-            System.out.println("Test 3 passed");
-        } else {
-            System.out.println("Test 3 failed");
-            System.exit(255);
+            points++;
         }
         if (findPosition(9, twodArray).getR() == answers[2][0] && findPosition(9, twodArray).getC() == answers[2][1]) {
-            System.out.println("Test 4 passed");
-        } else {
-            System.out.println("Test 4 failed");
-            System.exit(255);
+            points++;
         }
-        System.exit({{ exitcode }}); // 0 for success, 255 for failure
+        // max 4
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     public static Position findPosition (int num, int[][] intArr) {
