@@ -33,14 +33,13 @@ public class PredictionRunner {
 
             int exitCode = process.waitFor();
             System.out.println("Python script execution finished with exit code: " + exitCode);
-            int attribute5 = (int) attribute1; 
-            return attribute5;
-            //return Integer.parseInt(line);
+            return Integer.parseInt(line);
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        return 5;
+        return -5;
     }
 
     public static void main(String[] args) {
