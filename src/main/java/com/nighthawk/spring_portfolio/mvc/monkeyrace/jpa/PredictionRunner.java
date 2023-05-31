@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PredictionRunner {
-    public int runPythonScript(int attribute1, int attribute2, int attribute3) {
+    public int runPythonScript(double attribute1, double attribute2, double attribute3) {
         try {
             String pythonScript = "import pandas as pd\n" +
                     "from sklearn.tree import DecisionTreeClassifier\n" +

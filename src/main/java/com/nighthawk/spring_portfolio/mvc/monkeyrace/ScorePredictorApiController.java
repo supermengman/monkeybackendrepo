@@ -52,13 +52,19 @@ public class ScorePredictorApiController extends PredictionRunner {
                 levelStatus.set(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
             }
             else {
-                levelStatus.set(l.getNumber(), -1);
+                levelStatus.set(l.getNumber(), null);
             }
         }
 
-        int attribute1 = levelStatus.get(1);
-        int attribute2 = levelStatus.get(2);
-        int attribute3 = levelStatus.get(3);      
+        ArrayList<Integer> levelTestCases = new ArrayList<Integer>();
+
+        for (Level l : levels) {
+            levelTestCases.set(l.getNumber(), l.getTestcases());
+        }
+
+        double attribute1 = (levelStatus.get(1) / levelTestCases.get(1)) * 9;
+        double attribute2 = (levelStatus.get(2) / levelTestCases.get(2)) * 9;
+        double attribute3 = (levelStatus.get(3) / levelTestCases.get(3)) * 9;
         
         if (levelStatus.get(1) == null || levelStatus.get(2) == null || levelStatus.get(3) == null) {
             return new ResponseEntity<Object>("You haven't submitted all the FRQs.", HttpStatus.OK);
