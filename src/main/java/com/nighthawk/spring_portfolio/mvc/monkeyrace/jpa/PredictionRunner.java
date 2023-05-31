@@ -33,8 +33,9 @@ public class PredictionRunner {
 
             int exitCode = process.waitFor();
             System.out.println("Python script execution finished with exit code: " + exitCode);
-
-            return Integer.parseInt(line);
+            int attribute5 = (int) attribute1; 
+            return attribute5;
+            //return Integer.parseInt(line);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -44,7 +45,7 @@ public class PredictionRunner {
 
     public static void main(String[] args) {
         PredictionRunner scriptRunner = new PredictionRunner();
-        int predictedScore = scriptRunner.runPythonScript(9, 9, 9);
+        int predictedScore = scriptRunner.runPythonScript(1.14, 4.9, 8.91);
         System.out.println("Score: " + predictedScore);
     }
 }
