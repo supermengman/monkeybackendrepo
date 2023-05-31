@@ -87,8 +87,8 @@ public class ScorePredictorApiController extends PredictionRunner {
         if (levelStatus.get(1) == null || levelStatus.get(2) == null || levelStatus.get(3) == null) {
             return new ResponseEntity<Object>("You haven't submitted all the FRQs.", HttpStatus.OK);
         }
-        
-        // If
+
+        // If FRQs have been submitted, return score by running Python script
         else {
             int score = runPythonScript(attribute1, attribute2, attribute3);
             return new ResponseEntity<Object>(score, HttpStatus.OK); 
