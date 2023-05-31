@@ -25,15 +25,15 @@ public class {{ classname }} {
    
    public static void main (String[] args) {
     int points = 0;
-    {{ classname }} class = new {{ classname }}();
+    {{ classname }} classr = new {{ classname }}();
 
-    class.addStudent(new Student(“Rohan”, 95));
-    if (class.students.get(0).getName().equals(“Rohan”)) points++;
-    class.addStudent(new Student(“Andrew”, 90));
-    if (class.students.get(1).getName().equals(“Andrew”)) points++;
-    class.addStudent(new Student(“Rohan”, 100));
-    if (class.students.size() == 2) points++;
-    if (class.students.get(0).getGrade() == 100) points++;
+    classr.addStudent(new Student("Rohan", 95));
+    if (classr.students.get(0).getName().equals("Rohan")) points++;
+    classr.addStudent(new Student("Andrew", 90));
+    if (classr.students.get(1).getName().equals("Andrew")) points++;
+    classr.addStudent(new Student("Rohan", 100));
+    if (classr.students.size() == 2) points++;
+    if (classr.students.get(0).getGrade() == 100) points++;
     
     System.out.println("{{ specialcode }}-" + points);
 

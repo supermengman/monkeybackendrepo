@@ -2,7 +2,7 @@
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 RUN apt update && \
-    apt install -y git
+    apt install -y git python3
 COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true

@@ -30,14 +30,14 @@ public class {{ classname }} {
    
    public static void main (String[] args) {
     int points = 0;
-    {{ classname }} class = new {{ classname }}();
+    {{ classname }} classr = new {{ classname }}();
 
-    class.addStudent(new Student(“Rohan”, 95));
-    class.addStudent(new Student(“Rohan1”, 85));
-    class.addStudent(new Student(“Rohan2”, 100));
+    classr.addStudent(new Student("Rohan", 95));
+    classr.addStudent(new Student("Rohan1", 85));
+    classr.addStudent(new Student("Rohan2", 100));
 
-    if (class.getGoodStudents(90).size() == 2) points++;
-    if (class.getGoodStudents(95).size() == 1) points++;
+    if (classr.getGoodStudents(90).size() == 2) points++;
+    if (classr.getGoodStudents(95).size() == 1) points++;
     
     System.out.println("{{ specialcode }}-" + points);
 
