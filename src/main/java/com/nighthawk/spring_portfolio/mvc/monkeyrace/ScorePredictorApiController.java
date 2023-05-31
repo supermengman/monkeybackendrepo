@@ -75,6 +75,7 @@ public class ScorePredictorApiController extends PredictionRunner {
             levelTestCases.set(l.getNumber(), l.getTestcases());
         }
 
+        // Generates score out of 9 for each FRQ to be compatible with decision tree
         double attribute1 = levelStatus.get(0);
         attribute1 = (attribute1 / levelTestCases.get(0)) * 9;
         double attribute2 = levelStatus.get(1);
@@ -82,10 +83,12 @@ public class ScorePredictorApiController extends PredictionRunner {
         double attribute3 = levelStatus.get(2);
         attribute3 = (attribute3 / levelTestCases.get(2)) * 9;
         
+        // Checks if less than 3 FRQs have been submitted
         if (levelStatus.get(1) == null || levelStatus.get(2) == null || levelStatus.get(3) == null) {
             return new ResponseEntity<Object>("You haven't submitted all the FRQs.", HttpStatus.OK);
         }
-
+        
+        // If
         else {
             int score = runPythonScript(attribute1, attribute2, attribute3);
             return new ResponseEntity<Object>(score, HttpStatus.OK); 
