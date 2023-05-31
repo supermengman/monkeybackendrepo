@@ -42,7 +42,7 @@ public class ScorePredictorApiController extends PredictionRunner {
         }
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
-        ArrayList<Integer> levelStatus = new ArrayList<Integer>();
+        ArrayList<Integer> levelStatus = new ArrayList<Integer>(100);
 
         for (Level l : levels) {
 
@@ -56,7 +56,7 @@ public class ScorePredictorApiController extends PredictionRunner {
             }
         }
 
-        ArrayList<Integer> levelTestCases = new ArrayList<Integer>();
+        ArrayList<Integer> levelTestCases = new ArrayList<Integer>(100);
 
         for (Level l : levels) {
             levelTestCases.set(l.getNumber(), l.getTestcases());
