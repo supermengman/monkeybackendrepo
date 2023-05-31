@@ -40,7 +40,7 @@ public class PredictionRunner {
             e.printStackTrace();
         }
 
-        return 0;
+        return 5;
     }
 
     public static void main(String[] args) {
