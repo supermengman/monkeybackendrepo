@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class PredictionRunner {
     public int runPythonScript(double attribute1, double attribute2, double attribute3) {
         
-        return (int) attribute1;
+        return (int) attribute2;
 //        try {
 //            String pythonScript = "import pandas as pd\n" +
 //                    "from sklearn.tree import DecisionTreeClassifier\n" +
