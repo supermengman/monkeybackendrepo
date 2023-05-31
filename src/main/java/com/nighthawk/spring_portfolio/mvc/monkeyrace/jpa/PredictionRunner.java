@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PredictionRunner {
-    public int runPythonScript(double attribute1, double attribute2, double attribute3) {  
+    public int runPythonScript(double attribute1, double attribute2, double attribute3) {
         try {
             String pythonScript = "import pandas as pd\n" +
                     "from sklearn.tree import DecisionTreeClassifier\n" +
@@ -19,9 +19,9 @@ public class PredictionRunner {
                     "clf.fit(X_train, y_train)\n" +
                     "y_pred = clf.predict(X_test)\n" +
                     "def predict_score(attribute1, attribute2, attribute3):\n" +
-                    "input_data = pd.DataFrame([[attribute1, attribute2, attribute3]])\n" +
-                    "prediction = clf.predict(input_data)\n" +
-                    "return prediction[0]\n" +
+                    "    input_data = pd.DataFrame([[attribute1, attribute2, attribute3]])\n" +
+                    "    prediction = clf.predict(input_data)\n" +
+                    "    return prediction[0]\n" +
                     "predicted_score = predict_score(" + attribute1 + ", " + attribute2 + ", " + attribute3 + ")\n" +
                     "print(predicted_score)";
 
@@ -37,8 +37,9 @@ public class PredictionRunner {
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            return -5;
         }
+
+        return -5;
     }
 
     public static void main(String[] args) {
