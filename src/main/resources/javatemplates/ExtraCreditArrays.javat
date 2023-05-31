@@ -7,19 +7,16 @@ public class {{ classname }} {
             {{45, 3, 5}, {20, 10, 3}, {10, 98, 8}}
         };
 
+        int points = 0;
+
         for (int i = 0; i < testcases.length; i++) {
             int answer = highestSum(testcases[i]);
             if (answer == answers[i]) {
-                System.out.println("Testcase " + i + " passed!");
-            } else {
-                System.out.println("Testcase " + i + " failed!");
-                System.out.println("Expected: " + answers[i]);
-                System.out.println("Got: " + answer);
-                System.exit(255);
+                points++;
             }
         }
 
-        System.exit({{ exitcode }});
+        System.out.println("{{ specialcode }}-" + points);
     }
 
     
