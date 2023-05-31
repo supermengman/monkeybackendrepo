@@ -26,12 +26,14 @@ public class PredictionRunner {
                     "predicted_score = predict_score(" + attribute1 + ", " + attribute2 + ", " + attribute3 + ")\n" +
                     "print(predicted_score)";
 
+            // Runs python script
             ProcessBuilder processBuilder = new ProcessBuilder("python3", "-c", pythonScript);
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
 
+            // Returns error if the script fails
             int exitCode = process.waitFor();
             System.out.println("Python script execution finished with exit code: " + exitCode);
             return Integer.parseInt(line);
@@ -39,10 +41,11 @@ public class PredictionRunner {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
+        // Returns arbitrary value if the script doesn't work
         return -5;
     }
 
+    // Main method for testing with decimal frq scores
     public static void main(String[] args) {
         PredictionRunner scriptRunner = new PredictionRunner();
         int predictedScore = scriptRunner.runPythonScript(1.14, 4.9, 8.91);
