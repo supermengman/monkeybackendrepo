@@ -34,6 +34,7 @@ public class ScorePredictorApiController extends PredictionRunner {
     
     @PostMapping("/apscore")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
+        // same as getLevelList, gets the person and ensures they're logged in
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -41,9 +42,11 @@ public class ScorePredictorApiController extends PredictionRunner {
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
+        // Instantiates arraylist of scores for each level
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
         ArrayList<Integer> levelStatus = new ArrayList<Integer>(100);
 
+        // Puts score for current user into the arraylist
         for (int i = 0; i < 200; i++) {
             levelStatus.add(null);
         }
