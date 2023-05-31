@@ -51,6 +51,7 @@ public class ScorePredictorApiController extends PredictionRunner {
             levelStatus.add(null);
         }
         
+        // For loop which gets score of each user and adds it to the arraylist
         for (Level l : levels) {
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
@@ -62,8 +63,10 @@ public class ScorePredictorApiController extends PredictionRunner {
             }
         }
 
+        // Instantiates arraylist of highest possible score for each FRQ
         ArrayList<Integer> levelTestCases = new ArrayList<Integer>(100);
 
+        // Sets each level's max score to null
         for (int i = 0; i < 200; i++) {
             levelTestCases.add(null);
         }
