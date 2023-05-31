@@ -2,12 +2,12 @@
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
 RUN apt update && \
-    apt install -y git python3
+    apt install -y git python3 python3-pip
 COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true
-RUN python3 -m pip install pandas
-RUN python3 -m pip install sklearn
+RUN pip3 install pandas
+RUN pip3 install sklearn
 COPY . .
 RUN ./mvnw package
 CMD ["java", "-jar", "target/spring-0.0.1-SNAPSHOT.jar"]
