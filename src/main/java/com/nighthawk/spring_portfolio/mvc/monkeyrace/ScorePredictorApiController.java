@@ -43,7 +43,10 @@ public class ScorePredictorApiController extends PredictionRunner {
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
         ArrayList<Integer> levelStatus = new ArrayList<Integer>(100);
-
+        for (int i = 0; i < 100; i++) {
+            levelStatus.add(null);
+        }
+        
         for (Level l : levels) {
 
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
@@ -57,6 +60,10 @@ public class ScorePredictorApiController extends PredictionRunner {
         }
 
         ArrayList<Integer> levelTestCases = new ArrayList<Integer>(100);
+
+        for (int i = 0; i < 100; i++) {
+            levelTestCases.add(null);
+        }
 
         for (Level l : levels) {
             levelTestCases.set(l.getNumber(), l.getTestcases());
