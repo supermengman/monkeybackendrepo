@@ -25,15 +25,17 @@ public class {{ classname }} {
             {true, false, false, false, false, false, true, false, false}
         };
 
+        int points = 0;
+
         for (int i = 0; i<grid.length; i++) {
             for (int j = 0; j<grid[i].length; j++) {
-                if (toBeLabeled(i, j, grid) != labeled[i][j]) {
-                    System.exit(255);
+                if (toBeLabeled(i, j, grid) == labeled[i][j]) {
+                    points++;
                 }
             }
         }
+        System.out.println("{{ specialcode }}-" + points);
 
-        System.exit({{ exitcode }});
     }
 
     public static boolean toBeLabeled(int r, int c, boolean[][] blackSquares) {

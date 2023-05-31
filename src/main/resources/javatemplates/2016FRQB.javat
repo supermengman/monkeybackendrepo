@@ -37,19 +37,23 @@ public class {{ classname }} {
 
         {{ classname }} obj = new {{ classname }}(grid);
 
+        int points = 0;
         if (obj == null || obj.puzzle == null || grid.length != obj.puzzle.length || grid[0].length != obj.puzzle[0].length) {
+            System.out.println("{{ specialcode }}-" + points);
             System.exit(255);
         }
 
         for (int i = 0; i<grid.length; i++) {
             for (int j = 0; j<grid[i].length; j++) {
                 if (obj.puzzle[i][j].isBlack != grid[i][j] || obj.puzzle[i][j].num != labels[i][j]) {
-                    System.exit(255);
+                    continue
                 }
+                points++;
             }
         }
 
-        System.exit({{ exitcode }});
+        System.out.println("{{ specialcode }}-" + points);
+
     }
 
     public boolean toBeLabeled(int r, int c, boolean[][] blackSquares) {
