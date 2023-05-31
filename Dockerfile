@@ -7,7 +7,7 @@ COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true
 RUN pip3 install pandas
-RUN pip3 install sklearn
+RUN pip3 install scikit-learn
 COPY . .
 RUN ./mvnw package
 CMD ["java", "-jar", "target/spring-0.0.1-SNAPSHOT.jar"]
