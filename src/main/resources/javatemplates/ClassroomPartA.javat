@@ -27,11 +27,11 @@ public class {{ classname }} {
     int points = 0;
     {{ classname }} class = new {{ classname }}();
 
-    class.addStudent(new Student(“Rohan”, 95));
-    if (class.students.get(0).getName().equals(“Rohan”)) points++;
-    class.addStudent(new Student(“Andrew”, 90));
-    if (class.students.get(1).getName().equals(“Andrew”)) points++;
-    class.addStudent(new Student(“Rohan”, 100));
+    class.addStudent(new Student("Rohan", 95));
+    if (class.students.get(0).getName().equals("Rohan")) points++;
+    class.addStudent(new Student("Andrew", 90));
+    if (class.students.get(1).getName().equals("Andrew")) points++;
+    class.addStudent(new Student("Rohan", 100));
     if (class.students.size() == 2) points++;
     if (class.students.get(0).getGrade() == 100) points++;
     
