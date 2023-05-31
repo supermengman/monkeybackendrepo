@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 
 import java.nio.charset.StandardCharsets;
@@ -108,7 +110,7 @@ public class PersonApiController {
     }
 
     @PostMapping("/updateUsername")
-    public ResponseEntity<Object> updatePerson(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt) throws NoSuchAlgorithmException {
+    public ResponseEntity<Object> updatePerson(@RequestBody final Map<String, Object> map, @CookieValue("flashjwt") String jwt, HttpServletResponse response) throws NoSuchAlgorithmException {
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -130,10 +132,21 @@ public class PersonApiController {
             
 
             repository.save(p);
+
+            // update jwt and send to client
+            String newJwt = handler.createJwt(p);
+            Cookie cookie = new Cookie("flashjwt", newJwt);
+            cookie.setPath("/");
+            cookie.setMaxAge(1000 * 60 * 60);
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+
             Map<String, Object> resp = new HashMap<>();
             resp.put("err", false);
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
+
+        
 
         Map<String, Object> resp = new HashMap<>();
         resp.put("err", "Bad User Input");
