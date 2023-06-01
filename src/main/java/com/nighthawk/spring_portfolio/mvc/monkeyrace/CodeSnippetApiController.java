@@ -33,6 +33,9 @@ public class CodeSnippetApiController {
     
     @Autowired
     PersonJpaRepository personJpaRepository;
+    
+    @Autowired
+    CategoryJpaRepository categoryJpaRepository;
 
     @Autowired
     LoginHandler handler;
@@ -147,6 +150,9 @@ public class CodeSnippetApiController {
         Map<String, Object> result = new HashMap<>();
         result.put("levels", levels);
         result.put("status", levelStatus);
+        
+        List<Category> categories = categoryJpaRepository.findAll();
+        result.put("categories", categories);
 
         result.forEach((key, value) -> System.out.println(key + ":" + value));
 
