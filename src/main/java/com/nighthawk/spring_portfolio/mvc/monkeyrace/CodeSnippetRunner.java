@@ -97,12 +97,12 @@ public class CodeSnippetRunner {
         }
         
         // compile
-        String[] command = {"javac", className+".java"};
-        ProcessBuilder compileBuilder = new ProcessBuilder(command);
+        String[] compileCommand = {"javac", className+".java"};
+        ProcessBuilder compileBuilder = new ProcessBuilder(compileCommand);
         compileBuilder = compileBuilder.directory(new File("volumes/javacode"));
         
         try {
-            Process p = builder.start();
+            Process p = compileBuilder.start();
             p.waitFor();
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
             
