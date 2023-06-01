@@ -95,8 +95,28 @@ public class CodeSnippetRunner {
             System.out.println("Exception: " + e + ", " + e.getStackTrace());
             return Pair.of(Optional.of("Backend error"), 0);
         }
-
-        String[] command = {"java", "-Djava.security.manager", className + ".java"};
+        
+        // compile
+        String[] command = {"javac", className+".java"};
+        ProcessBuilder compileBuilder = new ProcessBuilder(command);
+        compileBuilder = compileBuilder.directory(new File("volumes/javacode"));
+        
+        try {
+            Process p = builder.start();
+            p.waitFor();
+            System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
+            
+            if (p.exitValue() != 0) {
+                return Pair.of(Optional.of("Compilation Error"), 0);
+            }
+        } catch (Exception e) {
+            System.out.println("Exception: " + e + ", " + e.getStackTrace());
+            return Pair.of(Optional.of("Backend error"), 0);
+        }
+        
+        // run
+        
+        String[] command = {"java", "-Djava.security.manager", className};
         ProcessBuilder builder = new ProcessBuilder(command);
         builder = builder.directory(new File("volumes/javacode"));
         
@@ -107,7 +127,7 @@ public class CodeSnippetRunner {
             System.out.println(new String(p.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
 
             if (p.exitValue() == 1) {
-                return Pair.of(Optional.of("Compilation failed or Runtime Error"), 0);
+                return Pair.of(Optional.of("Runtime Error"), 0);
             }
 
             String output = new String(p.getInputStream().readAllBytes());
