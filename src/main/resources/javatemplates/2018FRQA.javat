@@ -2,9 +2,12 @@
 // Use this editor to write, compile and run your Java code online
 
 import java.util.*;
+import java.security.*;
 
 public class {{ classname }} {
     public static void main(String[] args) {
+        {{ security }}
+    
         int[][] answers = {
             {0,3,6,9},
             {1,4,7,5},
