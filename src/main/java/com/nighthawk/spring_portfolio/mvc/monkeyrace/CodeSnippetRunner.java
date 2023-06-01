@@ -50,17 +50,13 @@ public class CodeSnippetRunner {
         }
         
         // special security code that prevents RCE
-        String security = "Permission noExecPermission = new RuntimePermission(\"exec\");\n\n"
-        + "Policy.setPolicy(new Policy() {\n"
-        + "    @Override\n"
-        + "    public boolean implies(ProtectionDomain domain, Permission permission) {\n"
-        + "        if (permission.equals(noExecPermission)) {\n"
-        + "            return false;\n"
-        + "        }\n"
-        + "        return super.implies(domain, permission);\n"
-        + "    }\n"
-        + "});\n"
-        + "System.setSecurityManager(new SecurityManager());\n\n";
+        String security = "class MySecurityManager extends SecurityManager {\n" +
+"    @Override\n" +
+"    public void checkExec(String cmd) {\n" +
+"        throw new AccessControlException(\"Cannot execute process\");\n" +
+"    }\n" +
+"}\n" +
+"SecurityManager securityManager = new SecurityManager();";
 
         return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ security }}", security).replace("{{ answer }}", answer);
     }
