@@ -48,8 +48,21 @@ public class CodeSnippetRunner {
             System.out.println("Getting template has failed, user's code will FAIL. Problem File: " + getProblemFileName());
             template = "public class {{ classname }} {public static void main(String[] args) {System.exit(255);}}";
         }
+        
+        // special security code that prevents RCE
+        String security = "System.setSecurityManager(new SecurityManager());\n\n"
+        + "Permission noExecPermission = new RuntimePermission(\"exec\");\n\n"
+        + "Policy.setPolicy(new Policy() {\n"
+        + "    @Override\n"
+        + "    public boolean implies(ProtectionDomain domain, Permission permission) {\n"
+        + "        if (permission.equals(noExecPermission)) {\n"
+        + "            return false;\n"
+        + "        }\n"
+        + "        return super.implies(domain, permission);\n"
+        + "    }\n"
+        + "});";
 
-        return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ answer }}", answer);
+        return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ security }}", security).replace("{{ answer }}", answer);
     }
 
     private String generateRandomClassName(int characters) {
