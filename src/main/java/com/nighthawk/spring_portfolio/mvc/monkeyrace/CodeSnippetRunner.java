@@ -50,8 +50,7 @@ public class CodeSnippetRunner {
         }
         
         // special security code that prevents RCE
-        String security = "System.setSecurityManager(new SecurityManager());\n\n"
-        + "Permission noExecPermission = new RuntimePermission(\"exec\");\n\n"
+        String security = "Permission noExecPermission = new RuntimePermission(\"exec\");\n\n"
         + "Policy.setPolicy(new Policy() {\n"
         + "    @Override\n"
         + "    public boolean implies(ProtectionDomain domain, Permission permission) {\n"
@@ -60,7 +59,8 @@ public class CodeSnippetRunner {
         + "        }\n"
         + "        return super.implies(domain, permission);\n"
         + "    }\n"
-        + "});";
+        + "});\n"
+        + "System.setSecurityManager(new SecurityManager());\n\n";
 
         return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ security }}", security).replace("{{ answer }}", answer);
     }
@@ -116,7 +116,7 @@ public class CodeSnippetRunner {
         
         // run
         
-        String[] command = {"java", "-Djava.security.manager", className};
+        String[] command = {"java", className};
         ProcessBuilder builder = new ProcessBuilder(command);
         builder = builder.directory(new File("volumes/javacode"));
         
