@@ -56,7 +56,7 @@ public class CodeSnippetRunner {
 "        throw new AccessControlException(\"Cannot execute process\");\n" +
 "    }\n" +
 "}\n" +
-"SecurityManager securityManager = new SecurityManager();\n"
+"SecurityManager securityManager = new SecurityManager();\n" +
  "System.setSecurityManager(securityManager);";
 
         return template.replace("{{ classname }}", className).replace("{{ specialcode }}", Integer.toString(specialCode)).replace("{{ security }}", security).replace("{{ answer }}", answer);
