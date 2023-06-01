@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class PredictionRunner {
-    public int runPythonScript(int attribute1, int attribute2, int attribute3) {
+    public int runPythonScript(double attribute1, double attribute2, double attribute3) {
         try {
+            // Train Decision Tree Model
             String pythonScript = "import pandas as pd\n" +
                     "from sklearn.tree import DecisionTreeClassifier\n" +
                     "from sklearn.model_selection import train_test_split\n" +
@@ -25,26 +26,29 @@ public class PredictionRunner {
                     "predicted_score = predict_score(" + attribute1 + ", " + attribute2 + ", " + attribute3 + ")\n" +
                     "print(predicted_score)";
 
-            ProcessBuilder processBuilder = new ProcessBuilder("python", "-c", pythonScript);
+            // Runs python script
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", "-c", pythonScript);
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
 
+            // Returns error if the script fails
             int exitCode = process.waitFor();
             System.out.println("Python script execution finished with exit code: " + exitCode);
-
             return Integer.parseInt(line);
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-
-        return -1;
+        // Returns arbitrary value if the script doesn't work
+        return -5;
     }
 
+    // Main method for testing with decimal frq scores
     public static void main(String[] args) {
         PredictionRunner scriptRunner = new PredictionRunner();
-        int predictedScore = scriptRunner.runPythonScript(9, 9, 9);
+        int predictedScore = scriptRunner.runPythonScript(1.14, 4.9, 8.91);
         System.out.println("Score: " + predictedScore);
     }
 }

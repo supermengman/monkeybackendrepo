@@ -34,6 +34,7 @@ public class ScorePredictorApiController extends PredictionRunner {
     
     @PostMapping("/apscore")
     public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
+        // same as getLevelList, gets the person and ensures they're logged in
         Person p = handler.decodeJwt(jwt);
         if (p == null) {
             Map<String, Object> resp = new HashMap<>();
@@ -41,29 +42,53 @@ public class ScorePredictorApiController extends PredictionRunner {
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
         }
 
+        // Instantiates arraylist of scores for each level
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
-        ArrayList<Integer> levelStatus = new ArrayList<Integer>();
+        ArrayList<Integer> levelStatus = new ArrayList<Integer>(100);
 
+        // Puts score for current user into the arraylist
+        for (int i = 0; i < 200; i++) {
+            levelStatus.add(null);
+        }
+        
+        // For loop which gets score of each user and adds it to the arraylist
         for (Level l : levels) {
-
             Optional<CodeSnippet> optional = codeSnippetJpaRepository.findByPersonAndLevel(p, l);
             if (optional.isPresent()) {
                 CodeSnippet snippet = optional.get();
                 levelStatus.set(l.getNumber(), snippet.getTestcasesPassed() == null ? 0 : snippet.getTestcasesPassed());
             }
             else {
-                levelStatus.set(l.getNumber(), -1);
+                levelStatus.set(l.getNumber(), null);
             }
         }
 
-        int attribute1 = levelStatus.get(1);
-        int attribute2 = levelStatus.get(2);
-        int attribute3 = levelStatus.get(3);      
+        // Instantiates arraylist of highest possible score for each FRQ
+        ArrayList<Integer> levelTestCases = new ArrayList<Integer>(100);
+
+        // Sets each level's max score to null
+        for (int i = 0; i < 200; i++) {
+            levelTestCases.add(null);
+        }
+
+        for (Level l : levels) {
+            levelTestCases.set(l.getNumber(), l.getTestcases());
+        }
+
+        // Generates score out of 9 for each FRQ to be compatible with decision tree
+        double attribute1 = levelStatus.get(0);
+        attribute1 = (attribute1 / levelTestCases.get(0)) * 9;
+        double attribute2 = levelStatus.get(1);
+        attribute2 = (attribute2 / levelTestCases.get(1)) * 9;
+        double attribute3 = levelStatus.get(2);
+        attribute3 = (attribute3 / levelTestCases.get(2)) * 9;
         
+        // Checks if less than 3 FRQs have been submitted
         if (levelStatus.get(1) == null || levelStatus.get(2) == null || levelStatus.get(3) == null) {
             return new ResponseEntity<Object>("You haven't submitted all the FRQs.", HttpStatus.OK);
         }
 
+        // If FRQs have been submitted, return score by running Python script
         else {
             int score = runPythonScript(attribute1, attribute2, attribute3);
             return new ResponseEntity<Object>(score, HttpStatus.OK); 

@@ -29,7 +29,7 @@ public class ModelInit {
     CommandLineRunner run() {  // The run() method will be executed after the application starts
         return args -> {
 
-            String[] categories = {"2D Arrays", "Arrays"};
+            String[] categories = {"2D Arrays", "Arrays", "ArrayLists"};
             Map<String, Category> categoryMap = new HashMap<>();
 
             for (String c : categories) {

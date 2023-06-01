@@ -121,7 +121,7 @@ public class CodeSnippetApiController {
 
 
     @PostMapping("/getLevelList")
-    public ResponseEntity<Object> getLevelList(@CookieValue("flashjwt") String jwt) {
+    public ResponseEntity<Object> getLevelList(@CookieValue(value="flashjwt", required=false) String jwt) {
         
 
         List<Level> levels = levelJpaRepository.findAllByOrderByNumberAsc();
