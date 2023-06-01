@@ -96,7 +96,7 @@ public class CodeSnippetRunner {
             return Pair.of(Optional.of("Backend error"), 0);
         }
 
-        String[] command = {"java", className + ".java"};
+        String[] command = {"java", "Djava.security.manager", className + ".java"};
         ProcessBuilder builder = new ProcessBuilder(command);
         builder = builder.directory(new File("volumes/javacode"));
         
