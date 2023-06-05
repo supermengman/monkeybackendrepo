@@ -1,5 +1,14 @@
 ## Team Macro Monkeys 🐒
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Build Instructions (Backend)](#build-instructions-backend)
+3. [Features](#features)
+4. [Technical Requirements](#technical-requirements)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
+7. [License](#license)
+
 ## Overview
 
 Application that asks users CS based questions that are solved by inserting code which is checked by a series of algorithmns.
