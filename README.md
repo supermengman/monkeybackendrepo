@@ -92,6 +92,8 @@ Submit a pull request with a descriptive title and a summary of your changes.
 
 Participate in the code review process by addressing any feedback or suggestions.
 
+You can follow a basic guide for training and testing a machine learning model similar to that in this project with this guide: https://aaravarora01.github.io/AaravArora-APCSA-Fastpages/jupyter/2023/05/15/apscoresml.html 
+
 ## License
 
 This project is licensed under the MIT LICENSE
