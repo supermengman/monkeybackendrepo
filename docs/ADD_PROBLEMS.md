@@ -51,6 +51,7 @@ public void addStudent (Student student) {
 ## Step 2: Write code that tests your user's solution
 - This code should have a variable to count how many points/testcases the user got in their solution
 - Use special variables to denote things --> use ``{{ classname }}`` whereever you would put the name of the class, use ``{{ answer }}`` where the user's answer should go, use ``{{ specialcode }}`` when printing how many test cases user got (see example)
+- Also make sure to add ``{{ security }}`` on the top of the main method to ensure the user cannot do insecure actions such as reading files, running commands (security by Java's SecurityManager)
 - In the example below, take special note of the main method, which is wehre your code to test the user's solutin goes (you must have the println statement at the end to denote how many testcases/points the user got)
 ```java
 import java.util.ArrayList;
@@ -86,6 +87,8 @@ public class {{ classname }} {
    } 
    
    public static void main (String[] args) {
+    {{ security }}
+   
     int points = 0;
     {{ classname }} classr = new {{ classname }}();
 
