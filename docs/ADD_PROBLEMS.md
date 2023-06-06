@@ -1,6 +1,6 @@
 # Steps to adding a problem to the site
 ## Step 1: Create problem statement in markdown
-- Create a statement that explains the problem statement using markdown, example below:
+- Create a statement that explains the problem statement using markdown, example below (do not include the backslashes):
 ```md
 This question involves the implementation of the Classroom class which represents a single company’s cellphone phone availability and prices.
 
