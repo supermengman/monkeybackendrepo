@@ -4,6 +4,13 @@ The CodeSnippetApiController API provides endpoints for managing code snippets a
 
 ## Endpoints
 
+- [Attempt Level](#attempt-level)
+- [Get Snippet](#get-snippet)
+- [Get Level List](#get-level-list)
+- [Get Levels by Category](#get-levels-by-category)
+- [Get Data for Level](#get-data-for-level)
+
+
 ### Attempt Level
 
 **URL:** `/api/code/attemptLevel`
