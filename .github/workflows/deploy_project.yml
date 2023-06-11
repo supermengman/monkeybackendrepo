@@ -2,6 +2,7 @@ name: Deploy to Server
 on: [push]
 jobs:
   AWS-Deploy:
+    if: ${{ false }}  # disable for now
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ secrets.SSH_KEY }} | base64 -d > key.pem
