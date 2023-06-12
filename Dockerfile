@@ -7,7 +7,7 @@ COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true
 RUN pip3 install pandas
-RUN apt install -y gfortran libopenblas-dev liblapack-dev
+RUN apt install -y gfortran libopenblas-dev liblapack-dev cmake
 RUN pip3 install scikit-learn
 COPY . .
 RUN ./mvnw package
