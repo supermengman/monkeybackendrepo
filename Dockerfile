@@ -6,9 +6,9 @@ RUN apt install -y git python3 python3-pip
 COPY ["pom.xml", "mvnw", "./"]
 COPY .mvn .mvn
 RUN ./mvnw install -Dspring-boot.repackage.skip=true
-RUN pip3 install pandas
-RUN apt install -y gfortran libopenblas-dev liblapack-dev cmake
-RUN pip3 install meson
+# RUN pip3 install pandas
+# RUN apt install -y gfortran libopenblas-dev liblapack-dev cmake
+# RUN pip3 install meson
 # RUN pip3 install scikit-learn --index-url https://piwheels.org/simple
 COPY . .
 RUN ./mvnw package
