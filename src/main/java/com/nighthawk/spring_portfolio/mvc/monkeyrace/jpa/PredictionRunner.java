@@ -42,7 +42,7 @@ public class PredictionRunner {
             e.printStackTrace();
         }
         // Returns arbitrary value if the script doesn't work
-        return -5;
+        return 5;
     }
 
     // Main method for testing with decimal frq scores
